@@ -13,3 +13,4 @@ making possible to use asciimath everywhere, for example in interaction with
 * Locating parsing errors
 * Add a LaTeX writer
 * '\ ' is not handled
+* Matrices are not implemented yet
