@@ -137,13 +137,20 @@ greek_letters = S.fromList [
   "psi", "Psi", "rho", "sigma", "Sigma", "tau", "theta", "Theta",
   "vartheta", "upsilon", "xi", "Xi", "zeta"]
 
+std_fun = S.fromList [
+  "sin", "cos", "tan", "csc", "sec", "cot",
+  "sinh", "cosh", "tanh", "log", "ln", "exp", "det", "dim", "lim", "mod",
+  "gcd", "lcm", "min", "max"]
+
 check_kw s = case M.lookup s kws of
     Just tok -> tok
     Nothing ->
         if S.member s greek_letters then
           GREEK s
-        else
-          RAW s
+        else if S.member s std_fun then
+            STDFUN s
+          else
+            RAW s
 
 sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
