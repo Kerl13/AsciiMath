@@ -1,30 +1,41 @@
 module Ast where
 
--- Greek letters
-data Greek = 
-  Galpha | Gbeta |  Gchi | Gdelta | GDelta | Gepsilon | Gvarepsilon
-  | Geta | Ggamma | GGamma | Giota | Gkappa | Glambda | GLambda
-  | Gmu | Gnu | Gomega | GOmega | Gphi | GPhi | Gvarphi
-  | Gpi | GPi | Gpsi | GPsi | Grho | Gsigma | GSigma | Gtau 
-  | Gtheta | GTheta | Gvartheta | Gupsilon | Gxi | GXi | Gzeta
-  deriving (Show)
-
 -- Constants : variables, numbers, etc.
 data Constant =
   Letter Char
   | Number Int
-  | GreekLetter Greek
-  -- TODO : A lot of other constants !
+  | GreekLetter String
+  | StdFun String
+  -- Operation symbols
+  | Add | Sub | Mul | Mmul | Mmmul | Sslash | Bbslash
+  | Times | Div | Comp | Oplus | Otimes | Odot
+  | Sum | Prod | Wedge | Wwedge | Vv | Vvv | Nn | Nnn | Uu | Uuu
+  -- Miscellaneous symbols
+  | Inte | Oint | Del | Grad | Addsub | Void | Infty | Aleph
+  | Angle | Therefore | Abs | Cdots | Vdots | Ddots | Bslash
+  | Quad | Diamond | Square | Lfloor | Rfloor | Lceil | Rceil
+  | Cc | Ensnn | Qq | Rr | Zz
+  -- Relation symbols
+  | Eq | Neq | Lt | Gt | Le | Ge | Prec | Succ
+  | In | Notin | Subset | Supset | Subsete | Supsete
+  | Mod | Congr | Approx | Prop
+  -- Logical symbols
+  | And | Or | Not | Implies | If | Iff | Forall | Exists
+  | Falsum | Taut | Turnstile | Tturnstile
+  -- Arrows
+  | Uarr | Darr | Larr | To
+  | Mapsto | Harr | Llarr | Hharr
   deriving (Show)
 
 -- Unary operators
 data UnaryOp = 
   Usqrt | Utext
   | Ubb | Ubbb | Ucc | Utt | Ufr | Usf
+  | Uhat | Ubar | Uul | Uvec | Udot | Uddot 
   deriving (Show)
 
 -- Binary operators
-data BinaryOp = BFrac | BRoot | BStackrel deriving (Show)
+data BinaryOp = BFrac | BRoot | BStackRel deriving (Show)
 
 -- Left brackets
 data LBracket = LPar | LCro | LBra | LChe | LBraCons deriving (Show)
@@ -43,10 +54,11 @@ data SimpleExpr =
 
 -- Global expressions
 data Expr =
-  Simple SimpleExpr
-  | Seq SimpleExpr Expr
+  Seq SimpleExpr Expr
+  | Simple SimpleExpr
   | Frac SimpleExpr SimpleExpr
-  | Sub SimpleExpr SimpleExpr
+  | Under SimpleExpr SimpleExpr
   | Super SimpleExpr SimpleExpr
   | SubSuper SimpleExpr SimpleExpr SimpleExpr
   deriving (Show)
+

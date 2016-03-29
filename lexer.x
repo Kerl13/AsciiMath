@@ -61,6 +61,7 @@ tokens :-
 {
 data Token =
   RAW String
+  | LETTER Char
   | NUM Int
   | LDEL String
   | RDEL String
@@ -161,6 +162,18 @@ check_sym1 s = case M.lookup s sym1 of
     Just tok -> tok
     Nothing -> RAW s
 
-get_tokens = alexScanTokens
+alphabet = S.fromList $ ['a'..'z'] ++ ['A'..'Z']
+
+unraw :: [Token] -> [Token]
+unraw [] = []
+unraw ((RAW (c:cs)):ts) =
+    if S.member c alphabet then
+        (LETTER c):(unraw ((RAW cs):ts))
+    else
+        (RAW [c]):(unraw ((RAW cs):ts))
+unraw ((RAW ""):ts) = unraw ts
+unraw (t:ts) = t:(unraw ts)
+
+get_tokens = unraw . alexScanTokens
 }
 
