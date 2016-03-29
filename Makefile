@@ -1,9 +1,11 @@
 BIN=asciimath
+COMP_OPT=-O2
+
 GENERATED=lexer.hs parser.hs
 MODULES=lexer ast parser main
 
 all: $(GENERATED)
-	ghc $(MODULES) -o $(BIN)
+	ghc $(COMP_OPT) $(MODULES) -o $(BIN)
 
 .SUFFIXES: .hs .x .y
 
