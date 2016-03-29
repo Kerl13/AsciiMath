@@ -1,0 +1,4 @@
+asciimath
+*.hi
+*.o
+lexer.hs
