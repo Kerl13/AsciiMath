@@ -10,4 +10,6 @@ making possible to use asciimath everywhere, for example in interaction with
 ## TODO
 
 * Locating lexing errors
-
+* Locating parsing errors
+* Add a LaTeX writer
+* '\ ' is not handled

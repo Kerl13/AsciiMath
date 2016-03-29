@@ -2,3 +2,5 @@ asciimath
 *.hi
 *.o
 lexer.hs
+parser.hs
+parser.info

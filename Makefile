@@ -1,6 +1,6 @@
-BIN=asciimathreader
-GENERATED=lexer.hs
-MODULES=lexer ast main
+BIN=asciimath
+GENERATED=lexer.hs parser.hs
+MODULES=lexer ast parser main
 
 all: $(GENERATED)
 	ghc $(MODULES) -o $(BIN)
@@ -15,6 +15,7 @@ all: $(GENERATED)
 
 clean:
 	rm -f *.o *.hi
+	rm -f parser.info
 	rm -f $(GENERATED)
 	rm -f $(BIN)
 
