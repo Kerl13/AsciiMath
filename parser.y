@@ -129,6 +129,10 @@ import Ast
 
 %%
 
+code:
+    expr        { [$1] }
+    | expr code { $1:$2 }
+
 expr:
     simpleExpr expr                             { Seq $1 $2 }
     | simpleExpr                                { Simple $1 }

@@ -62,3 +62,6 @@ data Expr =
   | SubSuper SimpleExpr SimpleExpr SimpleExpr
   deriving (Show)
 
+-- Whole asciimath code
+type Code = [Expr]
+
