@@ -11,7 +11,7 @@ $digit = [0-9]
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
-@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|" | "="
+@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|"
 
 @ident = $alpha+
 
@@ -25,6 +25,7 @@ tokens :-
   \\          { cst BSLASH }
   \^          { cst SUPER }
   \_          { cst UNDERSCORE }
+  =           { cst Lexer.EQ }
   "+-"        { cst ADDSUB }
   "**"        { cst MMUL }
   "//"        { cst SSLASH }
@@ -92,7 +93,7 @@ data Token =
   | FALSUM | TAUT | TURNSTILE | TTURNSTILE
   -- Arrows
   | UARR | DARR | LARR | TO
-  | MAPSTO | HARR | LLARR | HHARR
+  | MAPSTO | HARR | LLARR
   -- Accents
   | HAT | BAR | UL | VEC | DOT | DDOT 
   deriving (Show)
@@ -125,7 +126,7 @@ kws = M.fromList [
   ("AA", FORALL), ("EE", EXISTS), ("TT", TAUT),
   -- Arrows
   ("uarr", UARR), ("darr", DARR), ("rarr", TO), ("larr", LARR),
-  ("rArr", IMPLIES), ("lArr", LLARR), ("hArr", HHARR),
+  ("rArr", IMPLIES), ("lArr", LLARR), ("hArr", IFF),
   -- Accents
   ("hat", HAT), ("bar", BAR), ("ul", UL),
   ("vec", VEC), ("dot", DOT), ("ddot", DDOT)]

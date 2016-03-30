@@ -8,23 +8,23 @@ data Constant =
   | StdFun String
   -- Operation symbols
   | Add | Sub | Mul | Mmul | Mmmul | Sslash | Bbslash
-  | Times | Div | Comp | Oplus | Otimes | Odot
-  | Sum | Prod | Wedge | Wwedge | Vv | Vvv | Nn | Nnn | Uu | Uuu
+  | Times | Div | Comp | Oplus | Otimes | Odot
+  | Sum | Prod | Wedge | Wwedge | Vv | Vvv | Nn | Nnn | Uu | Uuu
   -- Miscellaneous symbols
-  | Inte | Oint | Del | Grad | Addsub | Void | Infty | Aleph
-  | Angle | Therefore | Abs | Cdots | Vdots | Ddots | Bslash
-  | Quad | Diamond | Square | Lfloor | Rfloor | Lceil | Rceil
-  | Cc | Ensnn | Qq | Rr | Zz
+  | Inte | Oint | Del | Grad | Addsub | Void | Infty | Aleph
+  | Angle | Therefore | Abs | Cdots | Vdots | Ddots | Bslash
+  | Quad | Diamond | Square | Lfloor | Rfloor | Lceil | Rceil
+  | Cc | Ensnn | Qq | Rr | Zz
   -- Relation symbols
-  | Eq | Neq | Lt | Gt | Le | Ge | Prec | Succ
-  | In | Notin | Subset | Supset | Subsete | Supsete
-  | Mod | Congr | Approx | Prop
+  | Eq | Neq | Lt | Gt | Le | Ge | Prec | Succ
+  | In | Notin | Subset | Supset | Subsete | Supsete
+  | Mod | Congr | Approx | Prop
   -- Logical symbols
-  | And | Or | Not | Implies | If | Iff | Forall | Exists
-  | Falsum | Taut | Turnstile | Tturnstile
+  | And | Or | Not | Implies | If | Iff | Forall | Exists
+  | Falsum | Taut | Turnstile | Tturnstile
   -- Arrows
-  | Uarr | Darr | Larr | To
-  | Mapsto | Harr | Llarr | Hharr
+  | Uarr | Darr | Larr | To
+  | Mapsto | Harr | Llarr
   deriving (Show)
 
 -- Unary operators
@@ -46,7 +46,7 @@ data RBracket = RPar | RCro | RBra | RChe | RBraCons deriving (Show)
 -- Simple expressions
 data SimpleExpr =
   SEConst Constant
-  | Delimited LBracket Expr RBracket
+  | Delimited LBracket Code RBracket
   | UnaryApp UnaryOp SimpleExpr
   | BinaryApp BinaryOp SimpleExpr SimpleExpr
   | Raw String  -- raw text that cannot be interpreted 

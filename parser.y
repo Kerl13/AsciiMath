@@ -117,7 +117,6 @@ import Ast
   MAPSTO      { MAPSTO } 
   HARR        { HARR } 
   LLARR       { LLARR } 
-  HHARR       { HHARR }
   HAT         { HAT } 
   BAR         { BAR } 
   UL          { UL } 
@@ -134,7 +133,7 @@ code:
     | expr code { $1:$2 }
 
 expr:
-    simpleExpr                                { Simple $1 }
+    simpleExpr                                  { Simple $1 }
     | simpleExpr '/' simpleExpr                 { Frac $1 $3 }
     | simpleExpr '_' simpleExpr                 { Under $1 $3 }
     | simpleExpr '^' simpleExpr                 { Super $1 $3 }
@@ -237,7 +236,6 @@ const:
     | MAPSTO      { Mapsto }
     | HARR        { Harr }
     | LLARR       { Llarr }
-    | HHARR       { Hharr }
 
 op1:
     SQRT        { Usqrt }
@@ -266,7 +264,7 @@ rDel : RDEL   { let RDEL s = $1 in rdel s }
 
 simpleExpr:
     const                       { SEConst $1 }
-    | lDel expr rDel            { Delimited $1 $2 $3 }
+    | lDel code rDel            { Delimited $1 $2 $3 }
     | op1 simpleExpr            { UnaryApp $1 $2 }
     | op2 simpleExpr simpleExpr { BinaryApp $1 $2 $3 }
     | RAW                       { let RAW s = $1 in Raw s }
