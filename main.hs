@@ -1,9 +1,12 @@
 module Main (main) where
 import Lexer (get_tokens)
 import Parser (parseAscii)
-import Ast
+import TeXWriter (writeTeX)
+
+endl :: String -> String
+endl = (flip (++)) "\n"
 
 f :: String -> String
-f = (flip (++) $ "\n") . show . parseAscii . get_tokens
+f = endl . writeTeX . parseAscii . get_tokens
 
 main = interact f
