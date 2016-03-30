@@ -1,8 +1,8 @@
 BIN=asciimath
-COMP_OPT=-O2
+COMP_OPT=
 
 GENERATED=lexer.hs parser.hs
-MODULES=lexer ast parser main
+MODULES=lexer ast parser texwriter main
 
 all: $(GENERATED)
 	ghc $(COMP_OPT) $(MODULES) -o $(BIN)
@@ -13,7 +13,7 @@ all: $(GENERATED)
 	alex $< 
 
 %.hs: %.y
-	happy $<
+	happy -g $<
 
 clean:
 	rm -f *.o *.hi

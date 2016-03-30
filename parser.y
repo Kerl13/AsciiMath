@@ -134,8 +134,7 @@ code:
     | expr code { $1:$2 }
 
 expr:
-    simpleExpr expr                             { Seq $1 $2 }
-    | simpleExpr                                { Simple $1 }
+    simpleExpr                                { Simple $1 }
     | simpleExpr '/' simpleExpr                 { Frac $1 $3 }
     | simpleExpr '_' simpleExpr                 { Under $1 $3 }
     | simpleExpr '^' simpleExpr                 { Super $1 $3 }

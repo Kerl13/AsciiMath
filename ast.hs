@@ -54,8 +54,7 @@ data SimpleExpr =
 
 -- Global expressions
 data Expr =
-  Seq SimpleExpr Expr
-  | Simple SimpleExpr
+  Simple SimpleExpr
   | Frac SimpleExpr SimpleExpr
   | Under SimpleExpr SimpleExpr
   | Super SimpleExpr SimpleExpr
