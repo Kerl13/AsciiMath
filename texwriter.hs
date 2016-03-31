@@ -10,7 +10,7 @@ cmdarg2 c a1 a2 = cmd c ++ "{" ++ a1 ++ "}{" ++ a2 ++ "}"
 
 writeConst :: Constant -> String
 -- Operation symbols
-writeConst (Letter c) = [c]
+writeConst (Letter c) = [' ', c]
 writeConst (Number n) = show n
 writeConst (GreekLetter s) = cmd s
 writeConst (StdFun s) = cmd s
