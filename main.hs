@@ -6,7 +6,7 @@ import TeXWriter (writeTeX)
 endl :: String -> String
 endl = (flip (++)) "\n"
 
-f :: String -> String
-f = endl . writeTeX . parseAscii . get_tokens
+run :: String -> String
+run = endl . writeTeX . parseAscii . get_tokens
 
-main = interact f
+main = interact run

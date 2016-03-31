@@ -2,6 +2,8 @@
 module Lexer where
 import qualified Data.Map as M
 import qualified Data.Set as S
+import Data.Word
+import Codec.Binary.UTF8.String (encode)
 }
 
 %wrapper "basic"
@@ -57,12 +59,11 @@ tokens :-
   "_|_"       { cst FALSUM }
   "|--"       { cst TURNSTILE }
   "|=="       { cst TTURNSTILE }
-  .           { \s -> RAW s }
 
 {
 data Token =
   RAW String
-  | LETTER Char
+  | LETTER Char | LETTERS_ String -- Temporary token
   | NUM Int
   | LDEL String
   | RDEL String
@@ -152,7 +153,7 @@ check_kw s = case M.lookup s kws of
         else if S.member s std_fun then
             STDFUN s
           else
-            RAW s
+            LETTERS_ s
 
 sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
@@ -161,20 +162,28 @@ sym1 = M.fromList [
 
 check_sym1 s = case M.lookup s sym1 of
     Just tok -> tok
-    Nothing -> RAW s
+    Nothing -> error ("'" ++ s ++ "' is supposed to be recognised")
 
 alphabet = S.fromList $ ['a'..'z'] ++ ['A'..'Z']
 
-unraw :: [Token] -> [Token]
-unraw [] = []
-unraw ((RAW (c:cs)):ts) =
-    if S.member c alphabet then
-        (LETTER c):(unraw ((RAW cs):ts))
-    else
-        (RAW [c]):(unraw ((RAW cs):ts))
-unraw ((RAW ""):ts) = unraw ts
-unraw (t:ts) = t:(unraw ts)
+split :: String -> Either String (String, String, String)
+split s = case span ((/=) '"') s of
+    (_, "")   -> Left s
+    (a, _:t)  ->
+        case span ((/=) '"') t of
+            (_, "")   -> error "Unterminated string"
+            (b, _:c)  -> Right (a, b, c)
 
-get_tokens = unraw . alexScanTokens
+get_tokens_ :: String -> [Token]
+get_tokens_ s = case split s of
+    Left s -> alexScanTokens s
+    Right (prev, str, next) ->
+        (alexScanTokens prev) ++ [RAW str] ++ (get_tokens_ next)
+
+get_tokens :: String -> [Token]
+get_tokens = unletters . get_tokens_
+    where unletters [] = []
+          unletters ((LETTERS_ s):toks) = (map LETTER s) ++ (unletters toks)
+          unletters (tok:toks) = tok:(unletters toks)
 }
 

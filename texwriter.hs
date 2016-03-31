@@ -152,7 +152,7 @@ writeSimpleExpr (BinaryApp BRoot e1 e2) =
     cmdarg ("sqrt[" ++ writeSimpleExpr e1 ++ "]") $ writeSimpleExpr e2
 writeSimpleExpr (BinaryApp BStackRel e1 e2) =
     cmdarg2 "stackrel" (writeSimpleExpr e1) (writeSimpleExpr e2)
-writeSimpleExpr (Raw s) = s
+writeSimpleExpr (Raw s) = cmdarg "textrm" s
 
 -- Writes a simple expression after removing the delimiters at the embracing
 -- delimiters if present
