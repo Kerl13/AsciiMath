@@ -1,9 +1,7 @@
 {
-module Lexer where
+module Lexer (get_tokens, Token(..)) where
 import qualified Data.Map as M
 import qualified Data.Set as S
-import Data.Word
-import Codec.Binary.UTF8.String (encode)
 }
 
 %wrapper "basic"

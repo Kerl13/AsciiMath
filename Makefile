@@ -10,7 +10,7 @@ all: $(GENERATED)
 .SUFFIXES: .hs .x .y
 
 %.hs: %.x
-	alex $< 
+	alex -g $< 
 
 %.hs: %.y
 	happy -g $<
