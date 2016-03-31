@@ -4,3 +4,4 @@ asciimath
 lexer.hs
 parser.hs
 parser.info
+*.swp

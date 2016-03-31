@@ -49,7 +49,7 @@ data SimpleExpr =
   | Delimited LBracket Code RBracket
   | UnaryApp UnaryOp SimpleExpr
   | BinaryApp BinaryOp SimpleExpr SimpleExpr
-  | Raw String  -- raw text that cannot be interpreted 
+  | Raw String  -- raw text, redered in a \textrm
   deriving(Show)
 
 -- Global expressions
