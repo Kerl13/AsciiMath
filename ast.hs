@@ -25,6 +25,8 @@ data Constant =
   -- Arrows
   | Uarr | Darr | Larr | To
   | Mapsto | Harr | Llarr
+  -- Additionnal symbols
+  | Comma
   deriving (Show)
 
 -- Unary operators

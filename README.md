@@ -46,8 +46,8 @@ original one defined [here](http://asciimath.org/#grammar) but I think the
 changes I made respect the original idea.
 
 
-c ::= `[a-zA-Z]` | _numbers_ | _greek letters_ | _standard functions_ | _other
-symbols_ (see [list](http://asciimath.org/#syntax))
+c ::= `[a-zA-Z]` | _numbers_ | _greek letters_ | _standard functions_ | `,` |
+_other symbols_ (see [list](http://asciimath.org/#syntax))
 
 u ::= `sqrt` | `text` | `bb` | `bbb` | `cc` | `tt` | `fr` | `sf`
 | `hat` | `bar` | `ul` | `vec` | `dot` | `ddot`

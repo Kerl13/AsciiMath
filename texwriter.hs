@@ -105,6 +105,8 @@ writeConst To = cmd "to"
 writeConst Mapsto = cmd "mapsto"
 writeConst Harr = cmd "leftrightarrow"
 writeConst Llarr = cmd "Leftarrow"
+-- Additionnal symbols
+writeConst Comma = ","
 
 -- Writes a unary operator
 writeUnaryOp :: UnaryOp -> String

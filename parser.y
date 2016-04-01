@@ -123,7 +123,7 @@ import Ast
   VEC         { VEC } 
   DOT         { DOT } 
   DDOT        { DDOT } 
-
+  COMMA       { COMMA }
 
 
 %%
@@ -236,6 +236,7 @@ const:
     | MAPSTO      { Mapsto }
     | HARR        { Harr }
     | LLARR       { Llarr }
+    | COMMA       { Comma }
 
 op1:
     SQRT        { Usqrt }

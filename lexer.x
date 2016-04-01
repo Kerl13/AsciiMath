@@ -11,7 +11,7 @@ $digit = [0-9]
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
-@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|"
+@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|" | ","
 
 @ident = $alpha+
 
@@ -95,6 +95,8 @@ data Token =
   | MAPSTO | HARR | LLARR
   -- Accents
   | HAT | BAR | UL | VEC | DOT | DDOT 
+  -- Additionnal tokens 
+  | COMMA
   deriving (Show)
 
 cst x = (\_ -> x)
@@ -156,7 +158,7 @@ check_kw s = case M.lookup s kws of
 sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
-  ("=", Lexer.EQ), ("<", Lexer.LT), (">", Lexer.GT)]
+  ("=", Lexer.EQ), ("<", Lexer.LT), (">", Lexer.GT), (",", COMMA)]
 
 check_sym1 s = case M.lookup s sym1 of
     Just tok -> tok
