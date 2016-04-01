@@ -11,7 +11,8 @@ making possible to use asciimath everywhere, for example in interaction with
 ## Install tips
 
 To get this tool, you just have to clone this repository and run `cabal install`
-to install the dependencies and then `make` to compile the project. That's it !
+in the cloned folder to install the dependencies and then `make` to compile the
+project. That's it !
 
 If you have trouble with cabal, you can install the dependencies manually by
 running  
