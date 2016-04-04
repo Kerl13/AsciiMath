@@ -115,7 +115,7 @@ writeConst Comma = ","
 writeUnaryOp :: UnaryOp -> String
 writeUnaryOp Usqrt = "sqrt"
 writeUnaryOp Utext = "textrm"
-writeUnaryOp Ubb = "mathbf"
+writeUnaryOp Ubb = "boldsymbol"
 writeUnaryOp Ubbb = "mathbb"
 writeUnaryOp Ucc = "mathcal"
 writeUnaryOp Utt = "texttt"

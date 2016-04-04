@@ -71,7 +71,7 @@ Code ::= [ E ]
 * The constants are converted to their LaTeX equivalent
 * `sqrt`, `hat`, `bar`, `vec`, `dot` and `ddot` are prefixed with a `\`
 * `text` and `ul` correspond to the `\textrm` and `underline` functions
-* `bb`, `bbb`, `cc`, `tt`, `fr` and `sf` correspond to the `\textbf`,
+* `bb`, `bbb`, `cc`, `tt`, `fr` and `sf` correspond to the `\boldsymbol`,
   `\mathbb`, `\mathcal`, `\texttt`, `\mathfrak` and `\textsf` functions
 * `frac` is rendered as a fraction, `root n x` as the `n`-th root of `x` and
   `stackrel x y` displays `x` upon `y`
