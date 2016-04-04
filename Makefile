@@ -2,10 +2,17 @@ BIN=asciimath
 COMP_OPT=
 
 GENERATED=lexer.hs parser.hs
-MODULES=lexer ast parser texwriter main
+MODULES=lexer ast parser texwriter
 
-all: $(GENERATED)
-	ghc $(COMP_OPT) $(MODULES) -o $(BIN)
+all: compiler filter
+
+base: $(GENERATED)
+
+filter: base
+	ghc $(COMP_OPT) $(MODULES) pandoc-asciimath -o pandoc-asciimath 
+
+compiler: base
+	ghc $(COMP_OPT) $(MODULES) asciimath -o $(BIN)
 
 .SUFFIXES: .hs .x .y
 
@@ -21,5 +28,3 @@ clean:
 	rm -f $(GENERATED)
 	rm -f $(BIN)
 
-exec: $(BIN)
-	./$(BIN)

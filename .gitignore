@@ -1,4 +1,5 @@
 asciimath
+pandoc-asciimath
 *.hi
 *.o
 lexer.hs
