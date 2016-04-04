@@ -9,4 +9,5 @@ endl = (flip (++)) "\n"
 run :: String -> String
 run = endl . writeTeX . parseAscii . get_tokens
 
+main :: IO ()
 main = interact run

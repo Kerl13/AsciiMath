@@ -9,6 +9,8 @@ cmd = cmd_ . (flip (++) $ " ")
 
 cmdarg :: String -> String -> String
 cmdarg c a = cmd_ c ++ "{" ++ a ++ "}"
+
+cmdarg2 :: String -> String -> String -> String
 cmdarg2 c a1 a2 = cmd_ c ++ "{" ++ a1 ++ "}{" ++ a2 ++ "}"
 
 writeConst :: Constant -> String

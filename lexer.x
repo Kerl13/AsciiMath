@@ -176,7 +176,7 @@ split s = case span ((/=) '"') s of
 
 get_tokens_ :: String -> [Token]
 get_tokens_ s = case split s of
-    Left s -> alexScanTokens s
+    Left s' -> alexScanTokens s'
     Right (prev, str, next) ->
         (alexScanTokens prev) ++ [RAW str] ++ (get_tokens_ next)
 
