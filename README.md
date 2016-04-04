@@ -81,7 +81,7 @@ Code ::= [ E ]
 * Any text placed between a pair of `"` is rendered in the same font as normal
   text.
 * `/` stands for a fraction. The `_` and `^` tokens have the same behaviour as
-  in LaTeX but the subscript must be place before the superscript if they are
+  in LaTeX but the subscript must be placed before the superscript if they are
   both present
 * Matrices can be rendered as explained [here](http://asciimath.org/#syntax)
   **[not implemented yet]**
