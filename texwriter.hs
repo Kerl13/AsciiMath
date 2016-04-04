@@ -1,16 +1,19 @@
 module TeXWriter (writeTeX) where
 import Ast
 
+cmd_ :: String -> String
+cmd_ s = "\\" ++ s
+
 cmd :: String -> String
-cmd s = "\\" ++ s
+cmd = cmd_ . (flip (++) $ " ")
 
 cmdarg :: String -> String -> String
-cmdarg c a = cmd c ++ "{" ++ a ++ "}"
-cmdarg2 c a1 a2 = cmd c ++ "{" ++ a1 ++ "}{" ++ a2 ++ "}"
+cmdarg c a = cmd_ c ++ "{" ++ a ++ "}"
+cmdarg2 c a1 a2 = cmd_ c ++ "{" ++ a1 ++ "}{" ++ a2 ++ "}"
 
 writeConst :: Constant -> String
 -- Operation symbols
-writeConst (Letter c) = [' ', c]
+writeConst (Letter c) = [c]
 writeConst (Number n) = show n
 writeConst (GreekLetter s) = cmd s
 writeConst (StdFun s) = cmd s
@@ -75,7 +78,7 @@ writeConst Ge = cmd "gesqlant"
 writeConst Prec = cmd "prec"
 writeConst Succ = cmd "succ"
 writeConst In = cmd "in"
-writeConst Notin = cmd "not" ++ cmd "in"
+writeConst Notin = cmd_ "not" ++ cmd "in"
 writeConst Subset = cmd "subset"
 writeConst Supset = cmd "supset"
 writeConst Subsete = cmd "subseteq"
@@ -128,13 +131,13 @@ writeUnaryOp Uddot = "ddot"
 -- Writes the delimitors
 writeLBracket :: LBracket -> String
 writeRBracket :: RBracket -> String
-writeLBracket l = cmd "left" ++ aux l
+writeLBracket l = cmd_ "left" ++ aux l
     where aux LPar = "("
           aux LCro = "["
           aux LBra = "\\{"
           aux LChe = cmd "langle"
           aux LBraCons = "."
-writeRBracket r = cmd "right" ++ aux r 
+writeRBracket r = cmd_ "right" ++ aux r 
    where  aux RPar = ")"
           aux RCro = "]"
           aux RBra = "\\}"
@@ -147,17 +150,16 @@ writeSimpleExpr (SEConst c) = writeConst c
 writeSimpleExpr (Delimited l e r) = 
     writeLBracket l ++ writeCode e ++ writeRBracket r
 writeSimpleExpr (UnaryApp o e) =
-    cmdarg (writeUnaryOp o) (writeSimpleExpr e)
+    cmdarg (writeUnaryOp o) (writeSimpleExprND e)
 writeSimpleExpr (BinaryApp BFrac e1 e2) =
-    cmdarg2 "frac" (writeSimpleExpr e1) (writeSimpleExpr e2)
+    cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
 writeSimpleExpr (BinaryApp BRoot e1 e2) =
     cmdarg ("sqrt[" ++ writeSimpleExpr e1 ++ "]") $ writeSimpleExpr e2
 writeSimpleExpr (BinaryApp BStackRel e1 e2) =
     cmdarg2 "stackrel" (writeSimpleExpr e1) (writeSimpleExpr e2)
 writeSimpleExpr (Raw s) = cmdarg "textrm" s
 
--- Writes a simple expression after removing the delimiters at the embracing
--- delimiters if present
+-- Writes a simple expression after removing the embracing delimiters if present
 writeSimpleExprND :: SimpleExpr -> String
 writeSimpleExprND (Delimited _ e _) = writeCode e
 writeSimpleExprND e = writeSimpleExpr e

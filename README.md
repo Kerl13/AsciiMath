@@ -75,15 +75,30 @@ Code ::= [ E ]
   `\mathbb`, `\mathcal`, `\texttt`, `\mathfrak` and `\textsf` functions
 * `frac` is rendered as a fraction, `root n x` as the `n`-th root of `x` and
   `stackrel x y` displays `x` upon `y`
-* Left and right delimiters are preceded by the `\left` and `\right` commands to
-  be well-sized. `(:` and `:)` are chevrons. `{:` and `:}` are invisible
-  delimiters. The others are rendered as expected
 * Any text placed between a pair of `"` is rendered in the same font as normal
   text.
 * `/` stands for a fraction. The `_` and `^` tokens have the same behaviour as
   in LaTeX but the subscript must be placed before the superscript if they are
   both present
-* Matrices can be rendered as explained [here](http://asciimath.org/#syntax)
-  **[not implemented yet]**
+
+### Delimiters
+
+Left and right delimiters are preceded by the `\left` and `\right` commands to
+be well-sized. `(:` and `:)` are chevrons. `{:` and `:}` are invisible
+delimiters like LaTeX's `{`. The other delimiters are rendered as expected.
+
+Useless delimiters are automatically removed in expressions like
+* `(...)/(...)`
+* `(...)_(...)`, `(...)^(...)` and the combination of sub- and superscript
+* `u (...)`, `b (...) (...)` where `u` and `b` are unary and binary operators
+
+If you want them to be rendered, you have to double them, for example :
+`((x+y))/2` or `{: (x+y) :}/2`
+
+### Matrices
+
+Matrices can be rendered as explained [here](http://asciimath.org/#syntax)
+
+**[not implemented yet]**
 
 
