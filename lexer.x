@@ -4,7 +4,7 @@ import qualified Data.Map as M
 import qualified Data.Set as S
 }
 
-%wrapper "basic"
+%wrapper "posn"
 
 $alpha = [a-zA-Z]
 $digit = [0-9]
@@ -17,11 +17,11 @@ $digit = [0-9]
 
 tokens :-
   $white+     ;
-  @ident      { check_kw }
-  $digit+     { \s -> NUM (read s) }
-  @ldel       { \s -> LDEL s }
-  @rdel       { \s -> RDEL s }
-  @sym1       { check_sym1 }
+  @ident      { \_ s -> check_kw s }
+  $digit+     { \_ s -> NUM (read s) }
+  @ldel       { \_ s -> LDEL s }
+  @rdel       { \_ s -> RDEL s }
+  @sym1       { \_ s -> check_sym1 s }
   \\          { cst BSLASH }
   \^          { cst SUPER }
   \_          { cst UNDERSCORE }
@@ -99,8 +99,10 @@ data Token =
   | COMMA | DOT
   deriving (Show)
 
-cst x = (\_ -> x)
+cst :: t -> (AlexPosn -> String -> t)
+cst x = (\_ _ -> x)
 
+kws :: M.Map String Token
 kws = M.fromList [
   -- Unary ops
   ("sqrt", SQRT), ("text", TEXT),
@@ -132,6 +134,7 @@ kws = M.fromList [
   ("hat", HAT), ("bar", BAR), ("ul", UL),
   ("vec", VEC), ("dot", DOTOP), ("ddot", DDOT)]
 
+greek_letters :: S.Set String
 greek_letters = S.fromList [
   "alpha", "beta", "chi", "delta", "Delta",
   "epsilon", "varepsilon", "eta", "gamma", "Gamma",
@@ -140,11 +143,13 @@ greek_letters = S.fromList [
   "psi", "Psi", "rho", "sigma", "Sigma", "tau", "theta", "Theta",
   "vartheta", "upsilon", "xi", "Xi", "zeta"]
 
+std_fun :: S.Set String
 std_fun = S.fromList [
   "sin", "cos", "tan", "csc", "sec", "cot",
   "sinh", "cosh", "tanh", "log", "ln", "exp", "det", "dim", "lim", "mod",
   "gcd", "lcm", "min", "max"]
 
+check_kw :: String -> Token
 check_kw s = case M.lookup s kws of
     Just tok -> tok
     Nothing ->
@@ -155,12 +160,14 @@ check_kw s = case M.lookup s kws of
           else
             LETTERS_ s
 
+sym1 :: M.Map String Token
 sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
   ("=", Lexer.EQ), ("<", Lexer.LT), (">", Lexer.GT), (",", COMMA), 
   (".", DOT)]
 
+check_sym1 :: String -> Token
 check_sym1 s = case M.lookup s sym1 of
     Just tok -> tok
     Nothing -> error ("'" ++ s ++ "' is supposed to be recognised")
