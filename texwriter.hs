@@ -112,6 +112,7 @@ writeConst Harr = cmd "leftrightarrow"
 writeConst Llarr = cmd "Leftarrow"
 -- Additionnal symbols
 writeConst Comma = ","
+writeConst Dot = "."
 
 -- Writes a unary operator
 writeUnaryOp :: UnaryOp -> String

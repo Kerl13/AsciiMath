@@ -121,9 +121,10 @@ import Ast
   BAR         { BAR } 
   UL          { UL } 
   VEC         { VEC } 
-  DOT         { DOT } 
+  DOTOP       { DOTOP } 
   DDOT        { DDOT } 
   COMMA       { COMMA }
+  DOT         { DOT }
 
 
 %%
@@ -236,14 +237,16 @@ const:
     | MAPSTO      { Mapsto }
     | HARR        { Harr }
     | LLARR       { Llarr }
+    -- Additionnal tokens
     | COMMA       { Comma }
+    | DOT         { Dot }
 
 op1:
     SQRT        { Usqrt }
     | TEXT      { Utext }
     | BB        { Ubb }
     | BBB       { Ubbb }
-    | UCC        { Ucc }
+    | UCC       { Ucc }
     | TT        { Utt }
     | FR        { Ufr }
     | SF        { Usf }
@@ -251,7 +254,7 @@ op1:
     | BAR       { Ubar }
     | UL        { Uul }
     | VEC       { Uvec }
-    | DOT       { Udot }
+    | DOTOP     { Udot }
     | DDOT      { Uddot }
 
 op2:

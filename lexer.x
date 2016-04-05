@@ -11,7 +11,7 @@ $digit = [0-9]
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
-@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|" | ","
+@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|" | "," | \.
 
 @ident = $alpha+
 
@@ -94,9 +94,9 @@ data Token =
   | UARR | DARR | LARR | TO
   | MAPSTO | HARR | LLARR
   -- Accents
-  | HAT | BAR | UL | VEC | DOT | DDOT 
+  | HAT | BAR | UL | VEC | DOTOP | DDOT 
   -- Additionnal tokens 
-  | COMMA
+  | COMMA | DOT
   deriving (Show)
 
 cst x = (\_ -> x)
@@ -130,7 +130,7 @@ kws = M.fromList [
   ("rArr", IMPLIES), ("lArr", LLARR), ("hArr", IFF),
   -- Accents
   ("hat", HAT), ("bar", BAR), ("ul", UL),
-  ("vec", VEC), ("dot", DOT), ("ddot", DDOT)]
+  ("vec", VEC), ("dot", DOTOP), ("ddot", DDOT)]
 
 greek_letters = S.fromList [
   "alpha", "beta", "chi", "delta", "Delta",
@@ -158,13 +158,12 @@ check_kw s = case M.lookup s kws of
 sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
-  ("=", Lexer.EQ), ("<", Lexer.LT), (">", Lexer.GT), (",", COMMA)]
+  ("=", Lexer.EQ), ("<", Lexer.LT), (">", Lexer.GT), (",", COMMA), 
+  (".", DOT)]
 
 check_sym1 s = case M.lookup s sym1 of
     Just tok -> tok
     Nothing -> error ("'" ++ s ++ "' is supposed to be recognised")
-
-alphabet = S.fromList $ ['a'..'z'] ++ ['A'..'Z']
 
 split :: String -> Either String (String, String, String)
 split s = case span ((/=) '"') s of
