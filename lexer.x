@@ -11,7 +11,8 @@ $digit = [0-9]
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
-@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|" | "," | \.
+@sym1 = "+" | "*" | "-" | "/" | "@" | "<" | ">" | "|" | "," | \. | \\ | \^
+      | = | \_
 
 @ident = $alpha+
 
@@ -22,10 +23,6 @@ tokens :-
   @ldel       { \_ s -> LDEL s }
   @rdel       { \_ s -> RDEL s }
   @sym1       { \_ s -> check_sym1 s }
-  \\          { cst BSLASH }
-  \^          { cst SUPER }
-  \_          { cst UNDERSCORE }
-  =           { cst Lexer.EQ }
   "+-"        { cst ADDSUB }
   "**"        { cst MMUL }
   "//"        { cst SSLASH }
@@ -165,7 +162,7 @@ sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
   ("=", Lexer.EQ), ("<", Lexer.LT), (">", Lexer.GT), (",", COMMA), 
-  (".", DOT)]
+  (".", DOT), ("\\", BSLASH), ("^", SUPER), ("=", Lexer.EQ), ("_", UNDERSCORE)]
 
 check_sym1 :: String -> Token
 check_sym1 s = case M.lookup s sym1 of
