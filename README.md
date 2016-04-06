@@ -25,18 +25,16 @@ it and prints the resulting LaTeX code on its standard output. For example :
     > echo "sum_(i=1)^n i^3=((n(n+1))/2)^2" | ./asciimath
     \sum_{i=1}^{n}i^{3}=\left(\frac{n\left(n+1\right)}{2}\right)^{2}
 
-The `Lexer`, `Parser` and `TeXWriter` modules also provide three functions :
-* `get_tokens :: String -> [Lexer.Token]`
-* `parseAscii :: [Lexer.Token] -> Ast.Code`
+The `Asciimath` module also provide three functions :
+* `readAscii :: String -> Ast.Code`
 * `writeTeX :: Ast.Code -> String`
+* `compile :: String -> String`
 
-which can be used to make a [pandoc filter](http://pandoc.org/scripting.html),
-play with the AST or anything else.
+which can be used in any Haskell program to play with the AST or anything else.
 
 ## TODO
 
 * Locating parsing errors
-* Matrices are not implemented yet
 
 ## Grammar
 
@@ -95,8 +93,10 @@ If you want them to be rendered, you have to double them, for example :
 
 ### Matrices
 
-Matrices can be rendered as explained [here](http://asciimath.org/#syntax)
-
-**[not implemented yet]**
-
+An expression of the form `((a,b),(c,d),(e,f))` is interpreted and rendered as a
+matrix. More precisely :
+* The outer brackets must be `(`,`)` or `[`,`]` and they determine whether the
+  rendered matrix is a `pamtrix` or a `bmatrix`.
+* The inner brackets must be `(`,`)` or `[`,`]` too. They have to be all the
+  same but they can be different from the outer brackets.
 

@@ -1,5 +1,6 @@
 module TeXWriter (writeTeX) where
 import Ast
+import Data.List (intercalate)
 
 cmd_ :: String -> String
 cmd_ s = "\\" ++ s
@@ -148,9 +149,18 @@ writeRBracket r = cmd_ "right" ++ aux r
           aux RChe = cmd "rangle"
           aux RBraCons = "."
 
+-- Usefull map
+mmap :: (a -> b) -> [[a]] -> [[b]]
+mmap f m = map (map f) m
+
 -- Writes a simple expression
 writeSimpleExpr :: SimpleExpr -> String
 writeSimpleExpr (SEConst c) = writeConst c
+writeSimpleExpr (Matrix t css) =
+    let mt = (if t ==  RawMatrix then "bmatrix" else "pmatrix") in
+    let textMatrix = mmap writeCode css in
+    let text = intercalate " \\\\ " $ map (intercalate " & ") textMatrix in
+    cmdarg "begin" mt ++ text ++ cmdarg "end" mt
 writeSimpleExpr (Delimited l e r) = 
     writeLBracket l ++ writeCode e ++ writeRBracket r
 writeSimpleExpr (UnaryApp o e) =

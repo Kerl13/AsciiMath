@@ -1,13 +1,13 @@
-module Main (main) where
+module Asciimath (readAscii, writeTeX, compile) where
 import Lexer (get_tokens)
 import Parser (parseAscii)
+import Passes (matrix)
 import TeXWriter (writeTeX)
+import Ast
 
-endl :: String -> String
-endl = (flip (++)) "\n"
+readAscii :: String -> Code
+readAscii = matrix . parseAscii . get_tokens
 
-run :: String -> String
-run = endl . writeTeX . parseAscii . get_tokens
+compile :: String -> String
+compile = writeTeX . readAscii
 
-main :: IO ()
-main = interact run

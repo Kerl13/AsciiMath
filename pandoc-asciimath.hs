@@ -1,10 +1,5 @@
-import Lexer (get_tokens)
-import Parser (parseAscii)
-import TeXWriter (writeTeX)
+import Asciimath (compile)
 import Text.Pandoc.JSON
-
-compile :: String -> String 
-compile = writeTeX . parseAscii . get_tokens
 
 main :: IO ()
 main = toJSONFilter asciimath

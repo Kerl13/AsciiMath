@@ -3,7 +3,7 @@ FILTER=pandoc-asciimath
 GHC_OPT=
 
 GENERATED=lexer.hs parser.hs
-MODULES=lexer ast parser texwriter
+MODULES=asciimath
 
 all: compiler filter
 
@@ -13,7 +13,7 @@ filter: base
 	ghc $(GHC_OPT) $(MODULES) pandoc-asciimath -o $(FILTER) 
 
 compiler: base
-	ghc $(GHC_OPT) $(MODULES) asciimath -o $(BIN)
+	ghc $(GHC_OPT) $(MODULES) compiler -o $(BIN)
 
 .SUFFIXES: .hs .x .y
 

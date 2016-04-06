@@ -27,32 +27,36 @@ data Constant =
   | Mapsto | Harr | Llarr
   -- Additionnal symbols
   | Comma | Dot
-  deriving (Show)
+  deriving (Show, Eq)
 
 -- Unary operators
 data UnaryOp = 
   Usqrt | Utext
   | Ubb | Ubbb | Ucc | Utt | Ufr | Usf
   | Uhat | Ubar | Uul | Uvec | Udot | Uddot 
-  deriving (Show)
+  deriving (Show, Eq)
 
 -- Binary operators
-data BinaryOp = BFrac | BRoot | BStackRel deriving (Show)
+data BinaryOp = BFrac | BRoot | BStackRel deriving (Show, Eq)
 
 -- Left brackets
-data LBracket = LPar | LCro | LBra | LChe | LBraCons deriving (Show)
+data LBracket = LPar | LCro | LBra | LChe | LBraCons deriving (Show, Eq)
 
 -- Right brackets 
-data RBracket = RPar | RCro | RBra | RChe | RBraCons deriving (Show)
+data RBracket = RPar | RCro | RBra | RChe | RBraCons deriving (Show, Eq)
+
+-- Matrix type
+data MatrixType = RawMatrix | ColMatrix deriving (Show, Eq)
 
 -- Simple expressions
 data SimpleExpr =
   SEConst Constant
   | Delimited LBracket Code RBracket
+  | Matrix MatrixType [[Code]]
   | UnaryApp UnaryOp SimpleExpr
   | BinaryApp BinaryOp SimpleExpr SimpleExpr
   | Raw String  -- raw text, redered in a \textrm
-  deriving(Show)
+  deriving(Show, Eq)
 
 -- Global expressions
 data Expr =
@@ -61,7 +65,7 @@ data Expr =
   | Under SimpleExpr SimpleExpr
   | Super SimpleExpr SimpleExpr
   | SubSuper SimpleExpr SimpleExpr SimpleExpr
-  deriving (Show)
+  deriving (Show, Eq)
 
 -- Whole asciimath code
 type Code = [Expr]
