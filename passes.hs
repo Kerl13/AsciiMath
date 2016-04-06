@@ -21,7 +21,7 @@ matrixSE (Delimited LCro c RCro) = case parseSeq c of
     Nothing -> Delimited LCro (matrix c) RCro
     Just m -> Matrix RawMatrix m
 matrixSE (Delimited LPar c RPar) = case parseSeq c of
-    Nothing -> Delimited LCro (matrix c) RCro
+    Nothing -> Delimited LPar (matrix c) RPar
     Just m -> Matrix ColMatrix m
 matrixSE (UnaryApp o e) = UnaryApp o (matrixSE e)
 matrixSE (BinaryApp o e1 e2) = BinaryApp o (matrixSE e1) (matrixSE e2)
@@ -57,7 +57,12 @@ parseSeq2 Nothing = Nothing
 parseSeq2 (Just cs) =
   let (lb, _) = head cs in
   if all (\(lb', _) -> lb' == lb) cs then
-    Just $ map ((split comma) . snd) cs
+    let res = map ((split comma) . snd) cs in
+    let n = length . head $ res in
+    if all (\l -> n == length l) res then
+      Just res
+      else
+        Nothing    
   else
     Nothing
 
