@@ -23,6 +23,7 @@ tokens :-
   @ldel       { \_ s -> LDEL s }
   @rdel       { \_ s -> RDEL s }
   @sym1       { \_ s -> check_sym1 s }
+  \\\         { cst SPACE }
   "+-"        { cst ADDSUB }
   "**"        { cst MMUL }
   "//"        { cst SSLASH }
@@ -79,7 +80,7 @@ data Token =
   | INT | OINT | DEL | GRAD | ADDSUB | VOID | INFTY | ALEPH
   | ANGLE | THEREFORE | ABS | CDOTS | VDOTS | DDOTS | BSLASH
   | QUAD | DIAMOND | SQUARE | LFLOOR | RFLOOR | LCEIL | RCEIL
-  | CC | ENSNN | QQ | RR | ZZ
+  | CC | ENSNN | QQ | RR | ZZ | SPACE
   -- Relation symbols
   | EQ | NEQ | LT | GT | LE | GE | PREC | SUCC
   | IN | NOTIN | SUBSET | SUPSET | SUBSETE | SUPSETE

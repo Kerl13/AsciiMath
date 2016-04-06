@@ -69,6 +69,7 @@ import Ast
   DDOTS       { DDOTS } 
   BSLASH      { BSLASH }
   QUAD        { QUAD } 
+  SPACE       { SPACE }
   DIAMOND     { DIAMOND } 
   SQUARE      { SQUARE } 
   LFLOOR      { LFLOOR } 
@@ -186,6 +187,7 @@ const:
     | DDOTS       { Ddots }
     | BSLASH      { Bslash }
     | QUAD        { Quad }
+    | SPACE       { Space }
     | DIAMOND     { Diamond }
     | SQUARE      { Square }
     | LFLOOR      { Lfloor }

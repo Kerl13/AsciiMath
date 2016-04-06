@@ -37,7 +37,6 @@ play with the AST or anything else.
 ## TODO
 
 * Locating parsing errors
-* '\ ' is not handled
 * Matrices are not implemented yet
 
 ## Grammar

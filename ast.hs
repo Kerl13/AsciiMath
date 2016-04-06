@@ -14,7 +14,7 @@ data Constant =
   | Inte | Oint | Del | Grad | Addsub | Void | Infty | Aleph
   | Angle | Therefore | Abs | Cdots | Vdots | Ddots | Bslash
   | Quad | Diamond | Square | Lfloor | Rfloor | Lceil | Rceil
-  | Cc | Ensnn | Qq | Rr | Zz
+  | Cc | Ensnn | Qq | Rr | Zz | Space
   -- Relation symbols
   | Eq | Neq | Lt | Gt | Le | Ge | Prec | Succ
   | In | Notin | Subset | Supset | Subsete | Supsete
