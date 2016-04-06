@@ -5,8 +5,7 @@ language to LaTeX.
 
 The aim of that project is to provide a Haskell Library and a command line tool
 making possible to use asciimath everywhere, for example in interaction with
-[pandoc](http://pandoc.org/) or for preprocessing on your
-[ocsigen](http://ocsigen.org/) website.
+[pandoc](http://pandoc.org/) or for preprocessing on your website.
 
 ## Install tips
 
