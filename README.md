@@ -99,4 +99,6 @@ matrix. More precisely :
   rendered matrix is a `pamtrix` or a `bmatrix`.
 * The inner brackets must be `(`,`)` or `[`,`]` too. They have to be all the
   same but they can be different from the outer brackets.
-
+* The matrix can have any size but cannot be empty
+* In the example, `(a,b)`, `(c,d)` and `(e,f)` are the **lines** of the matrix
+* The lines must have the same lengths
