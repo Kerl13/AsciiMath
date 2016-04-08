@@ -9,9 +9,13 @@ making possible to use asciimath everywhere, for example in interaction with
 
 ## Get started
 
-To get this tool, make sure you have [cabal](https://www.haskell.org/cabal/)
-installed on your system, then clone the repository and just run `make`. Cabal
-will automatically install the dependencies and build the project.
+First, make sure you have [cabal](https://www.haskell.org/cabal/),
+[alex](https://www.haskell.org/alex/) and
+[happy](https://www.haskell.org/happy/) installed on your system. Cabal is
+available on most platforms through your package manager, once cabal installed,
+you can get alex and happy by typing `cabal update && cabal install alex &&
+cabal install happy`. Then clone the repository and just run `make`. Cabal will
+automatically install the dependencies and build the project.
 
 ## Usage
 
