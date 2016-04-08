@@ -7,15 +7,11 @@ The aim of that project is to provide a Haskell Library and a command line tool
 making possible to use asciimath everywhere, for example in interaction with
 [pandoc](http://pandoc.org/) or for preprocessing on your website.
 
-## Install tips
+## Get started
 
-To get this tool, you just have to clone this repository and run `cabal install`
-in the cloned folder to install the dependencies and then `make` to compile the
-project. That's it !
-
-If you have trouble with cabal, you can install the dependencies manually by
-running  
-`cabal update && cabal install alex && cabal install happy`
+To get this tool, make sure you have [cabal](https://www.haskell.org/cabal/)
+installed on your system, then clone the repository and just run `make`. Cabal
+will automatically install the dependencies and build the project.
 
 ## Usage
 
@@ -25,7 +21,12 @@ it and prints the resulting LaTeX code on its standard output. For example :
     > echo "sum_(i=1)^n i^3=((n(n+1))/2)^2" | ./asciimath
     \sum_{i=1}^{n}i^{3}=\left(\frac{n\left(n+1\right)}{2}\right)^{2}
 
-The `Asciimath` module also provide three functions :
+The executable `pandoc-asciimath` is a [pandoc
+filter](http://pandoc.org/scripting.html). Example of use would be
+
+    > pandoc -s -S -t latex --filter pandoc-asciimath file.md -o file.pdf
+
+The `Asciimath` module built by cabal also provide three functions :
 * `readAscii :: String -> Ast.Code`
 * `writeTeX :: Ast.Code -> String`
 * `compile :: String -> String`
