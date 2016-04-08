@@ -1,4 +1,4 @@
-module Asciimath (readAscii, writeTeX, compile) where
+module AsciiMath (readAscii, writeTeX, compile) where
 import Lexer (get_tokens)
 import Parser (parseAscii)
 import Passes (matrix)

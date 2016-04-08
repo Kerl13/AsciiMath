@@ -1,5 +1,5 @@
 module Main (main) where
-import Asciimath (compile)
+import AsciiMath (compile)
 
 endl :: String -> String
 endl = (flip (++)) "\n"

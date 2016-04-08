@@ -1,4 +1,4 @@
-import Asciimath (compile)
+import AsciiMath (compile)
 import Text.Pandoc.JSON
 
 main :: IO ()

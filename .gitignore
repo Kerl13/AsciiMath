@@ -1,8 +1,2 @@
-asciimath
-pandoc-asciimath
-*.hi
-*.o
-lexer.hs
-parser.hs
-parser.info
 *.swp
+dist/
