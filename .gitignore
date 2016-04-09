@@ -2,3 +2,4 @@
 dist/
 pandoc-asciimath
 asciimath
+.stack-work
