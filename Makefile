@@ -1,5 +1,5 @@
 all:
-	cabal install
+	cabal install --only-dependencies
 	cabal configure
 	cabal build
 	ln -f -s dist/build/asciimath/asciimath asciimath
