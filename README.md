@@ -50,9 +50,9 @@ in the project main folder.
    compiled with [happy](https://www.haskell.org/happy/).
 
 2. Compile the compiler. The source file is stored in `src/compiler/`, the only
-   module needed is `AsciiMath`.
+   module required is `AsciiMath`.
 
-3. Compiler the pandoc filter. The source file is stored in `src/filter`.
+3. Compile the pandoc filter. The source file is stored in `src/filter`.
    Modules `Pandoc-types` and `AsciiMath` are required.
 
 ## Usage
@@ -62,6 +62,12 @@ it and prints the resulting LaTeX code on its standard output. For example :
 
     > echo "sum_(i=1)^n i^3=((n(n+1))/2)^2" | ./asciimath
     \sum_{i=1}^{n}i^{3}=\left(\frac{n\left(n+1\right)}{2}\right)^{2}
+
+or in "interactive mode"
+
+    > asciimath
+    sin(2x) = 2sin(x)cos(x) ^D
+    \sin \left(2x\right)=2\sin \left(x\right)\cos \left(x\right)
 
 The executable `pandoc-asciimath` is a [pandoc
 filter](http://pandoc.org/scripting.html). An example of use would be
