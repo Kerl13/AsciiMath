@@ -15,134 +15,136 @@ cmdarg2 :: String -> String -> String -> String
 cmdarg2 c a1 a2 = cmd_ c ++ "{" ++ a1 ++ "}{" ++ a2 ++ "}"
 
 writeConst :: Constant -> String
--- Operation symbols
-writeConst (Letter c) = [c]
-writeConst (Number n) = show n
-writeConst (GreekLetter s) = cmd s
-writeConst (StdFun s) = cmd s
-writeConst Add = "+"
-writeConst Sub = "-"
-writeConst Mul = cmd "cdot"
-writeConst Mmul = cmd "ast"
-writeConst Mmmul = cmd "star"
-writeConst Sslash = "/"
-writeConst Bbslash = cmd "\\"
-writeConst Times = cmd "times"
-writeConst Div = cmd "div"
-writeConst Comp = cmd "circ"
-writeConst Oplus = cmd "oplus"
-writeConst Otimes = cmd "otimes"
-writeConst Odot = cmd "odot"
-writeConst Sum = cmd "sum"
-writeConst Prod = cmd "prod"
-writeConst Wedge = cmd "wedge"
-writeConst Wwedge = cmd "bigwedge"
-writeConst Vv = cmd "vee"
-writeConst Vvv = cmd "bigvee"
-writeConst Nn = cmd "cap"
-writeConst Nnn = cmd "bigcap"
-writeConst Uu = cmd "cup"
-writeConst Uuu = cmd "bigcup"
--- Miscellaneous symbols
-writeConst Inte = cmd "int"
-writeConst Oint = cmd "oint"
-writeConst Del = cmd "partial"
-writeConst Grad = cmd "nabla"
-writeConst Addsub = cmd "pm"
-writeConst Void = cmd "emptyset"
-writeConst Infty = cmd "infty"
-writeConst Aleph = cmd "aleph"
-writeConst Angle = cmd "angle"
-writeConst Therefore = cmd "therefore"
-writeConst Abs = "|"
-writeConst Cdots = cmd "cdots"
-writeConst Vdots = cmd "vdots"
-writeConst Ddots = cmd "ddots"
-writeConst Bslash = "\\"
-writeConst Quad = cmd "quad"
-writeConst Space = cmd_ " "
-writeConst Diamond = cmd "diamond"
-writeConst Square = cmd "square"
-writeConst Lfloor = cmd "lfloor"
-writeConst Rfloor = cmd "rfloor"
-writeConst Lceil = cmd "lceil"
-writeConst Rceil = cmd "rceil"
-writeConst Cc = cmdarg "mathbb" "C"
-writeConst Ensnn = cmdarg "mathbb" "N"
-writeConst Qq = cmdarg "mathbb" "Q"
-writeConst Rr = cmdarg "mathbb" "R"
-writeConst Zz = cmdarg "mathbb" "Z"
--- Relation symbols
-writeConst Eq = "="
-writeConst Neq = cmd "neq"
-writeConst Lt = "<"
-writeConst Gt = ">"
-writeConst Le = cmd "leqslant"
-writeConst Ge = cmd "gesqlant"
-writeConst Prec = cmd "prec"
-writeConst Succ = cmd "succ"
-writeConst In = cmd "in"
-writeConst Notin = cmd_ "not" ++ cmd "in"
-writeConst Subset = cmd "subset"
-writeConst Supset = cmd "supset"
-writeConst Subsete = cmd "subseteq"
-writeConst Supsete = cmd "supseteq"
-writeConst Mod = cmd "equiv"
-writeConst Congr = cmd "cong"
-writeConst Approx = cmd "approx"
-writeConst Prop = cmd "propto"
--- Logical symbols
-writeConst And = cmdarg "textrm" "and"
-writeConst Or = cmdarg "textrm" "or"
-writeConst Not = cmd "neg"
-writeConst Implies = cmd "Rightarrow"
-writeConst If = cmdarg "textrm" "if"
-writeConst Iff = cmd "LeftRightarrow"
-writeConst Forall = cmd "forall"
-writeConst Exists = cmd "exists"
-writeConst Falsum = cmd "perp"
-writeConst Taut = cmd "top"
-writeConst Turnstile = cmd "vdash"
-writeConst Tturnstile = cmd "models"
--- Arrows
-writeConst Uarr = cmd "uparrow"
-writeConst Darr = cmd "downarrow"
-writeConst Larr = cmd "leftarrow"
-writeConst To = cmd "to"
-writeConst Mapsto = cmd "mapsto"
-writeConst Harr = cmd "leftrightarrow"
-writeConst Llarr = cmd "Leftarrow"
--- Additionnal symbols
-writeConst Comma = ","
-writeConst Dot = "."
+writeConst (Constant cst _) = writeConst_ cst
+              -- Operation symbols
+        where writeConst_ (Letter c) = [c]
+              writeConst_ (Number n) = show n
+              writeConst_ (GreekLetter s) = cmd s
+              writeConst_ (StdFun s) = cmd s
+              writeConst_ Add = "+"
+              writeConst_ Sub = "-"
+              writeConst_ Mul = cmd "cdot"
+              writeConst_ Mmul = cmd "ast"
+              writeConst_ Mmmul = cmd "star"
+              writeConst_ Sslash = "/"
+              writeConst_ Bbslash = cmd "\\"
+              writeConst_ Times = cmd "times"
+              writeConst_ Div = cmd "div"
+              writeConst_ Comp = cmd "circ"
+              writeConst_ Oplus = cmd "oplus"
+              writeConst_ Otimes = cmd "otimes"
+              writeConst_ Odot = cmd "odot"
+              writeConst_ Sum = cmd "sum"
+              writeConst_ Prod = cmd "prod"
+              writeConst_ Wedge = cmd "wedge"
+              writeConst_ Wwedge = cmd "bigwedge"
+              writeConst_ Vv = cmd "vee"
+              writeConst_ Vvv = cmd "bigvee"
+              writeConst_ Nn = cmd "cap"
+              writeConst_ Nnn = cmd "bigcap"
+              writeConst_ Uu = cmd "cup"
+              writeConst_ Uuu = cmd "bigcup"
+              -- Miscellaneous symbols
+              writeConst_ Inte = cmd "int"
+              writeConst_ Oint = cmd "oint"
+              writeConst_ Del = cmd "partial"
+              writeConst_ Grad = cmd "nabla"
+              writeConst_ Addsub = cmd "pm"
+              writeConst_ Void = cmd "emptyset"
+              writeConst_ Infty = cmd "infty"
+              writeConst_ Aleph = cmd "aleph"
+              writeConst_ Angle = cmd "angle"
+              writeConst_ Therefore = cmd "therefore"
+              writeConst_ Abs = "|"
+              writeConst_ Cdots = cmd "cdots"
+              writeConst_ Vdots = cmd "vdots"
+              writeConst_ Ddots = cmd "ddots"
+              writeConst_ Bslash = "\\"
+              writeConst_ Quad = cmd "quad"
+              writeConst_ Space = cmd_ " "
+              writeConst_ Diamond = cmd "diamond"
+              writeConst_ Square = cmd "square"
+              writeConst_ Lfloor = cmd "lfloor"
+              writeConst_ Rfloor = cmd "rfloor"
+              writeConst_ Lceil = cmd "lceil"
+              writeConst_ Rceil = cmd "rceil"
+              writeConst_ Cc = cmdarg "mathbb" "C"
+              writeConst_ Ensnn = cmdarg "mathbb" "N"
+              writeConst_ Qq = cmdarg "mathbb" "Q"
+              writeConst_ Rr = cmdarg "mathbb" "R"
+              writeConst_ Zz = cmdarg "mathbb" "Z"
+              -- Relation symbols
+              writeConst_ Eq = "="
+              writeConst_ Neq = cmd "neq"
+              writeConst_ Lt = "<"
+              writeConst_ Gt = ">"
+              writeConst_ Le = cmd "leqslant"
+              writeConst_ Ge = cmd "gesqlant"
+              writeConst_ Prec = cmd "prec"
+              writeConst_ Succ = cmd "succ"
+              writeConst_ In = cmd "in"
+              writeConst_ Notin = cmd_ "not" ++ cmd "in"
+              writeConst_ Subset = cmd "subset"
+              writeConst_ Supset = cmd "supset"
+              writeConst_ Subsete = cmd "subseteq"
+              writeConst_ Supsete = cmd "supseteq"
+              writeConst_ Mod = cmd "equiv"
+              writeConst_ Congr = cmd "cong"
+              writeConst_ Approx = cmd "approx"
+              writeConst_ Prop = cmd "propto"
+              -- Logical symbols
+              writeConst_ And = cmdarg "textrm" "and"
+              writeConst_ Or = cmdarg "textrm" "or"
+              writeConst_ Not = cmd "neg"
+              writeConst_ Implies = cmd "Rightarrow"
+              writeConst_ If = cmdarg "textrm" "if"
+              writeConst_ Iff = cmd "LeftRightarrow"
+              writeConst_ Forall = cmd "forall"
+              writeConst_ Exists = cmd "exists"
+              writeConst_ Falsum = cmd "perp"
+              writeConst_ Taut = cmd "top"
+              writeConst_ Turnstile = cmd "vdash"
+              writeConst_ Tturnstile = cmd "models"
+              -- Arrows
+              writeConst_ Uarr = cmd "uparrow"
+              writeConst_ Darr = cmd "downarrow"
+              writeConst_ Larr = cmd "leftarrow"
+              writeConst_ To = cmd "to"
+              writeConst_ Mapsto = cmd "mapsto"
+              writeConst_ Harr = cmd "leftrightarrow"
+              writeConst_ Llarr = cmd "Leftarrow"
+              -- Additionnal symbols
+              writeConst_ Comma = ","
+              writeConst_ Dot = "."
 
 -- Writes a unary operator
 writeUnaryOp :: UnaryOp -> String
-writeUnaryOp Usqrt = "sqrt"
-writeUnaryOp Utext = "textrm"
-writeUnaryOp Ubb = "boldsymbol"
-writeUnaryOp Ubbb = "mathbb"
-writeUnaryOp Ucc = "mathcal"
-writeUnaryOp Utt = "texttt"
-writeUnaryOp Ufr = "mathfrac"
-writeUnaryOp Usf = "mathsf"
-writeUnaryOp Uhat = "hat"
-writeUnaryOp Ubar = "overline"
-writeUnaryOp Uul = "underline"
-writeUnaryOp Uvec = "vec"
-writeUnaryOp Udot = "dot"
-writeUnaryOp Uddot = "ddot"
+writeUnaryOp (UnaryOp u _) = writeUnaryOp_ u
+        where writeUnaryOp_ Usqrt = "sqrt"
+              writeUnaryOp_ Utext = "textrm"
+              writeUnaryOp_ Ubb = "boldsymbol"
+              writeUnaryOp_ Ubbb = "mathbb"
+              writeUnaryOp_ Ucc = "mathcal"
+              writeUnaryOp_ Utt = "texttt"
+              writeUnaryOp_ Ufr = "mathfrac"
+              writeUnaryOp_ Usf = "mathsf"
+              writeUnaryOp_ Uhat = "hat"
+              writeUnaryOp_ Ubar = "overline"
+              writeUnaryOp_ Uul = "underline"
+              writeUnaryOp_ Uvec = "vec"
+              writeUnaryOp_ Udot = "dot"
+              writeUnaryOp_ Uddot = "ddot"
 
 -- Writes the delimitors
 writeLBracket :: LBracket -> String
 writeRBracket :: RBracket -> String
-writeLBracket l = cmd_ "left" ++ aux l
+writeLBracket (LBracket l _) = cmd_ "left" ++ aux l
     where aux LPar = "("
           aux LCro = "["
           aux LBra = "\\{"
           aux LChe = cmd "langle"
           aux LBraCons = "."
-writeRBracket r = cmd_ "right" ++ aux r 
+writeRBracket (RBracket r _) = cmd_ "right" ++ aux r 
    where  aux RPar = ")"
           aux RCro = "]"
           aux RBra = "\\}"
@@ -155,46 +157,49 @@ mmap f m = map (map f) m
 
 -- Writes a simple expression
 writeSimpleExpr :: SimpleExpr -> String
-writeSimpleExpr (SEConst c) = writeConst c
-writeSimpleExpr (Matrix t css) =
-    let mt = (if t ==  RawMatrix then "bmatrix" else "pmatrix") in
-    let textMatrix = mmap writeCode css in
-    let text = intercalate " \\\\ " $ map (intercalate " & ") textMatrix in
-    cmdarg "begin" mt ++ text ++ cmdarg "end" mt
-writeSimpleExpr (Delimited l e r) = 
-    writeLBracket l ++ writeCode e ++ writeRBracket r
-writeSimpleExpr (UnaryApp o e) =
-    cmdarg (writeUnaryOp o) (writeSimpleExprND e)
-writeSimpleExpr (BinaryApp BFrac e1 e2) =
-    cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
-writeSimpleExpr (BinaryApp BRoot e1 e2) =
-    cmdarg ("sqrt[" ++ writeSimpleExpr e1 ++ "]") $ writeSimpleExpr e2
-writeSimpleExpr (BinaryApp BStackRel e1 e2) =
-    cmdarg2 "stackrel" (writeSimpleExpr e1) (writeSimpleExpr e2)
-writeSimpleExpr (Raw s) = cmdarg "textrm" s
+writeSimpleExpr (SimpleExpr expr _) = writeSimpleExpr_ expr
+        where writeSimpleExpr_ (SEConst c) = writeConst c
+              writeSimpleExpr_ (Matrix t css) =
+                let mt = (if t == RawMatrix then "bmatrix" else "pmatrix") in
+                let textMatrix = mmap writeCode css in
+                let ls = map (intercalate " & ") textMatrix in
+                let text = intercalate " \\\\ " ls in
+                cmdarg "begin" mt ++ text ++ cmdarg "end" mt
+              writeSimpleExpr_ (Delimited l e r) = 
+                writeLBracket l ++ writeCode e ++ writeRBracket r
+              writeSimpleExpr_ (UnaryApp o e) =
+                cmdarg (writeUnaryOp o) (writeSimpleExprND e)
+              writeSimpleExpr_ (BinaryApp (BinaryOp BFrac _) e1 e2) =
+                cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
+              writeSimpleExpr_ (BinaryApp (BinaryOp BRoot _) e1 e2) =
+                cmdarg ("sqrt[" ++ writeSimpleExpr e1 ++ "]") $ writeSimpleExpr e2
+              writeSimpleExpr_ (BinaryApp (BinaryOp BStackRel _) e1 e2) =
+                cmdarg2 "stackrel" (writeSimpleExpr e1) (writeSimpleExpr e2)
+              writeSimpleExpr_ (Raw s) = cmdarg "textrm" s
 
 -- Writes a simple expression after removing the embracing delimiters if present
 writeSimpleExprND :: SimpleExpr -> String
-writeSimpleExprND (Delimited _ e _) = writeCode e
+writeSimpleExprND (SimpleExpr (Delimited _ e _) _) = writeCode e
 writeSimpleExprND e = writeSimpleExpr e
 
 -- Writes an expression
 writeExpr :: Expr -> String
-writeExpr (Simple se) = writeSimpleExpr se
-writeExpr (Frac e1 e2) =
-    cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
-writeExpr (Under e1 e2) =
-    writeSimpleExpr e1 ++ "_{" ++ writeSimpleExprND e2 ++ "}"
-writeExpr (Super e1 e2) = 
-    writeSimpleExpr e1 ++ "^{" ++ writeSimpleExprND e2 ++ "}"
-writeExpr (SubSuper e1 e2 e3) =
-    writeSimpleExpr e1 ++
-    "_{" ++ writeSimpleExprND e2 ++ "}" ++
-    "^{" ++ writeSimpleExprND e3 ++ "}"
+writeExpr (Expr e _) = writeExpr_ e
+        where writeExpr_ (Simple se) = writeSimpleExpr se
+              writeExpr_ (Frac e1 e2) =
+                cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
+              writeExpr_ (Under e1 e2) =
+                writeSimpleExpr e1 ++ "_{" ++ writeSimpleExprND e2 ++ "}"
+              writeExpr_ (Super e1 e2) = 
+                writeSimpleExpr e1 ++ "^{" ++ writeSimpleExprND e2 ++ "}"
+              writeExpr_ (SubSuper e1 e2 e3) =
+                writeSimpleExpr e1 ++
+                "_{" ++ writeSimpleExprND e2 ++ "}" ++
+                "^{" ++ writeSimpleExprND e3 ++ "}"
 
 -- Writes a code block
 writeCode :: Code -> String
-writeCode = foldr (\e s ->writeExpr e ++ s) ""
+writeCode = foldr (\e s -> writeExpr e ++ s) ""
 
 -- The main writer
 writeTeX :: Code -> String

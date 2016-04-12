@@ -21,18 +21,20 @@ library
   build-tools:          happy, alex
   hs-source-dirs:       src/lib      
   default-language:     Haskell2010
+  ghc-options:          -Wall
+  other-extensions:     DeriveDataTypeable
 
 executable asciimath
   main-is:              Compiler.hs
   build-depends:        AsciiMath, base
-  ghc-options:          -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:          -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:     Haskell2010
   hs-source-dirs:       src/compiler
 
 executable pandoc-asciimath
   main-is:              Pandoc-AsciiMath.hs
   build-depends:        AsciiMath, pandoc-types, base
-  ghc-options:          -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:          -Wall -threaded 
   default-language:     Haskell2010
   hs-source-dirs:       src/filter
 
@@ -41,7 +43,7 @@ test-suite asciimath-test
   hs-source-dirs:       tests
   main-is:              Spec.hs
   build-depends:        base, AsciiMath
-  ghc-options:          -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:          -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:     Haskell2010
 
 source-repository head

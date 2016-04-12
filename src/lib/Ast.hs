@@ -1,7 +1,8 @@
 module Ast where
+import Lexer (Position(..))
 
 -- Constants : variables, numbers, etc.
-data Constant =
+data Constant_ =
   Letter Char
   | Number Int
   | GreekLetter String
@@ -28,28 +29,33 @@ data Constant =
   -- Additionnal symbols
   | Comma | Dot
   deriving (Show, Eq)
+data Constant = Constant Constant_ Position deriving (Show, Eq)
 
 -- Unary operators
-data UnaryOp = 
+data UnaryOp_ = 
   Usqrt | Utext
   | Ubb | Ubbb | Ucc | Utt | Ufr | Usf
   | Uhat | Ubar | Uul | Uvec | Udot | Uddot 
   deriving (Show, Eq)
+data UnaryOp = UnaryOp UnaryOp_ Position deriving (Show, Eq)
 
 -- Binary operators
-data BinaryOp = BFrac | BRoot | BStackRel deriving (Show, Eq)
+data BinaryOp_ = BFrac | BRoot | BStackRel deriving (Show, Eq)
+data BinaryOp = BinaryOp BinaryOp_ Position deriving (Show, Eq)
 
 -- Left brackets
-data LBracket = LPar | LCro | LBra | LChe | LBraCons deriving (Show, Eq)
+data LBracket_ = LPar | LCro | LBra | LChe | LBraCons deriving (Show, Eq)
+data LBracket = LBracket LBracket_ Position deriving (Show, Eq)
 
 -- Right brackets 
-data RBracket = RPar | RCro | RBra | RChe | RBraCons deriving (Show, Eq)
+data RBracket_ = RPar | RCro | RBra | RChe | RBraCons deriving (Show, Eq)
+data RBracket = RBracket RBracket_ Position deriving (Show, Eq)
 
 -- Matrix type
 data MatrixType = RawMatrix | ColMatrix deriving (Show, Eq)
 
 -- Simple expressions
-data SimpleExpr =
+data SimpleExpr_ =
   SEConst Constant
   | Delimited LBracket Code RBracket
   | Matrix MatrixType [[Code]]
@@ -57,15 +63,17 @@ data SimpleExpr =
   | BinaryApp BinaryOp SimpleExpr SimpleExpr
   | Raw String  -- raw text, redered in a \textrm
   deriving(Show, Eq)
+data SimpleExpr = SimpleExpr SimpleExpr_ Position deriving (Show, Eq)
 
 -- Global expressions
-data Expr =
+data Expr_ =
   Simple SimpleExpr
   | Frac SimpleExpr SimpleExpr
   | Under SimpleExpr SimpleExpr
   | Super SimpleExpr SimpleExpr
   | SubSuper SimpleExpr SimpleExpr SimpleExpr
   deriving (Show, Eq)
+data Expr = Expr Expr_ Position deriving (Show, Eq)
 
 -- Whole asciimath code
 type Code = [Expr]
