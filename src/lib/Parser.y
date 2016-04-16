@@ -2,13 +2,14 @@
 module Parser (parseAscii) where
 import Lexer
 import Ast
-import Prelude hiding (EQ, LT, LE, GT, GE)
+import Prelude hiding (EQ, LT, GT)
 }
 
 %name parseAscii
 %tokentype { (Token, Position) }
-%error { \s ->  let (e, pos) = head s in
-                throw $ LexicalError (show e) pos }
+%monad { Either LexicalError } { thenE } { \x -> Right x }
+%error { \x ->  let (tok, pos) = head x in
+                Left $ LexicalError (show tok) pos }
 
 %token
   RAW         { (RAW _, _) }
@@ -129,15 +130,14 @@ import Prelude hiding (EQ, LT, LE, GT, GE)
   COMMA       { (COMMA, _) }
   DOT         { (DOT, _) }
 
-
 %%
 
 code:
     expr        { [$1] }
-    | expr code { $1:$2 }
+    | expr code { $1 : $2 }
 
 expr:
-    simpleExpr  { let (SimpleExpr _ pos) = $1 in Expr (Simple $1) pos  }
+    simpleExpr  { let (SimpleExpr _ pos) = $1 in Expr (Simple $1) pos }
     | simpleExpr '/' simpleExpr 
                 { let (SimpleExpr _ p1) = $1 in
                   let (SimpleExpr _ p3) = $3 in
@@ -152,8 +152,8 @@ expr:
                   Expr (Super $1 $3) (pextr p1 p2) }
     | simpleExpr '_' simpleExpr '^' simpleExpr 
                 { let (SimpleExpr _ p1) = $1 in
-                  let (SimpleExpr _ p3) = $5 in
-                  Expr (SubSuper $1 $3 $5) (pextr p1 p3) }
+                  let (SimpleExpr _ p5) = $5 in
+                  Expr (SubSuper $1 $3 $5) (pextr p1 p5) }
 
 const:
     LETTER        { let (LETTER s, p) = $1 in Constant (Letter s) p }
@@ -283,10 +283,11 @@ lDel : LDEL     { let (LDEL s, p) = $1 in LBracket (ldel s) p }
 rDel : RDEL     { let (RDEL s, p) = $1 in RBracket (rdel s) p }
 
 simpleExpr:
-    const       { let (Constant _ p) = $1 in SimpleExpr (SEConst $1) p }
+    const       { let (Constant _ p) = $1 in
+                  SimpleExpr (SEConst $1) p }
     | lDel code rDel
                 { let (LBracket _ p1) = $1 in
-                  let (RBracket _ p3) = $3 in
+				          let (RBracket _ p3) = $3 in
                   SimpleExpr (Delimited $1 $2 $3) (pextr p1 p3) }
     | op1 simpleExpr
                 { let (UnaryOp _ p1) = $1 in
@@ -299,6 +300,11 @@ simpleExpr:
     | RAW       { let (RAW s, p) = $1 in SimpleExpr (Raw s) p }
 
 {
+
+thenE :: Either LexicalError a -> (a -> Either LexicalError b) -> Either
+	  LexicalError b
+thenE (Left err) _ = Left err
+thenE (Right x) f = f x
 
 -- Conversion
 cst :: (Token, Position) -> Constant_ -> Constant

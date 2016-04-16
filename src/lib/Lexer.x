@@ -1,7 +1,6 @@
 {
 {-# LANGUAGE DeriveDataTypeable #-}
-module Lexer (get_tokens, Token(..), Position(..), LexicalError(..), throw) where
-import Control.Exception (throw)
+module Lexer (get_tokens, Token(..), Position(..), LexicalError(..)) where
 import qualified Data.Map as M
 import qualified Data.Set as S
 import Control.Exception (Exception)
@@ -192,7 +191,7 @@ check_sym1 s = case M.lookup s sym1 of
     Nothing -> error ("'" ++ s ++ "' is supposed to be recognised")
 
 -- The main function
-get_tokens :: String -> [(Token, Position)]
+get_tokens :: String -> Either LexicalError [(Token, Position)]
 get_tokens = alexScanTokens
 
 
@@ -304,15 +303,19 @@ unletters (c:s) (Position abs line col) =
     let hd = (LETTER c, Position abs line col) in
     hd:(unletters s $ Position (abs+1) line (col+1))
 
+cat :: [a] -> Either e [a] -> Either e [a]
+cat _ (Left e) = Left e
+cat l (Right l') = Right $ l ++ l'
+
 -- The scanner
-alexScanTokens :: String -> [(Token, Position)]
+alexScanTokens :: String -> Either LexicalError [(Token, Position)]
 alexScanTokens s = go (alexStartPos,'\n',[],s) 0
   where go inp@(pos,_,_,str) sc =
           case alexScan inp sc of
-              AlexEOF -> []
+              AlexEOF -> Right []
               AlexError (errPos,_,_,remaining) ->
                 let msg = cut remaining in
-                throw (LexicalError msg errPos)
+                Left $ LexicalError msg errPos
               AlexSkip inp' _ -> go inp' sc
               AlexToken inp' len act ->
                 let (tok, new_sc) = act pos (take len str) in
@@ -320,7 +323,7 @@ alexScanTokens s = go (alexStartPos,'\n',[],s) 0
                 let elt_pos = PositionElement abs line col len in
                 case tok of
                     WHITE -> go inp' new_sc
-                    LETTERS_ w -> unletters w elt_pos ++ go inp' new_sc
-                    _ -> (tok, elt_pos) : go inp' new_sc
+                    LETTERS_ w -> cat (unletters w elt_pos) $ go inp' new_sc
+                    _ -> cat [(tok, elt_pos)] $ go inp' new_sc
 }
 

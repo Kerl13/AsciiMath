@@ -1,8 +1,5 @@
 module Main (main) where
-import AsciiMath (compile)
-
-endl :: String -> String
-endl = (flip (++)) "\n"
+import AsciiMath (run)
 
 main :: IO ()
-main = interact (endl . compile)
+main = interact $ (++"\n") . run
