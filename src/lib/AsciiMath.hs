@@ -1,4 +1,4 @@
-module AsciiMath (readAscii, writeTeX, compile, run) where
+module AsciiMath (readAscii, writeTeX, compile, run, LexicalError(..)) where
 import Control.Exception (throw)
 import Lexer (get_tokens, LexicalError(..))
 import Parser (parseAscii)

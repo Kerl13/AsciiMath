@@ -74,10 +74,15 @@ filter](http://pandoc.org/scripting.html). An example of use would be
 
     > pandoc -s -S -t latex --filter pandoc-asciimath file.md -o file.pdf
 
-The `Asciimath` module built by cabal also provide three functions :
-* `readAscii :: String -> Ast.Code`
+The `Asciimath` module built by cabal also provide four functions :
+* `readAscii :: String -> Either LexicalError Ast.Code`
 * `writeTeX :: Ast.Code -> String`
-* `compile :: String -> String`
+* `compile :: String -> Either LexicalError String`
+* `run :: String -> String`
+
+The `run` function do the same work as `compile` but raises a system error if it
+fails whereas `compile` returns either a `LexicalError` or the expected compiled
+`String` which is much more convenient for error handling. 
 
 which can be used in any Haskell program to play with the AST or anything else.
 
