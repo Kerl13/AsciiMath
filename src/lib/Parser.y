@@ -133,7 +133,7 @@ import Prelude hiding (EQ, LT, GT)
 %%
 
 code:
-    expr        { [$1] }
+                { [] }
     | expr code { $1 : $2 }
 
 expr:

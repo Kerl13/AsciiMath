@@ -66,6 +66,7 @@ tokens :-
   <0>       "!in"       { cst NOTIN }
   <0>       "_|_"       { cst FALSUM }
   <0>       "|--"       { cst TURNSTILE }
+  <0>       "|->"       { cst MAPSTO }
   <0>       "|=="       { cst TTURNSTILE }
   <0>       \"          { \_ _ -> (WHITE, string) }
   <string>  @text       { \_ s -> (RAW s, string) }
@@ -122,7 +123,7 @@ kws :: M.Map String Token
 kws = M.fromList [
   -- Unary ops
   ("sqrt", SQRT), ("text", TEXT),
-  ("bb", BB),     ("bbb", BBB),  ("cc", CC),
+  ("bb", BB),     ("bbb", BBB),  ("cc", UCC),
   ("tt", TT),     ("fr", FR),    ("sf", SF),
   -- Binary ops
   ("frac", FRAC),
@@ -145,7 +146,7 @@ kws = M.fromList [
   ("AA", FORALL), ("EE", EXISTS), ("TT", TAUT),
   -- Arrows
   ("uarr", UARR), ("darr", DARR), ("rarr", TO), ("larr", LARR),
-  ("rArr", IMPLIES), ("lArr", LLARR), ("hArr", IFF),
+  ("harr", HARR), ("rArr", IMPLIES), ("lArr", LLARR), ("hArr", IFF),
   -- Accents
   ("hat", HAT), ("bar", BAR), ("ul", UL),
   ("vec", VEC), ("dot", DOTOP), ("ddot", DDOT)]

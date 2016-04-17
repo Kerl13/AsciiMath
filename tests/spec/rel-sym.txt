@@ -15,5 +15,5 @@ sube
 supe
 -=
 ~=
-~
+~~
 prop
