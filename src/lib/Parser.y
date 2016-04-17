@@ -27,9 +27,9 @@ import Prelude hiding (EQ, LT, GT)
   BB          { (BB, _) } 
   BBB         { (BBB, _) } 
   UCC         { (UCC, _) } 
-  TT          { (TT, _) } 
+  TT          { (TT, _) } 
   FR          { (FR, _) } 
-  SF          { (SF, _) }
+  SF          { (SF, _) }
   FRAC        { (FRAC, _) } 
   ROOT        { (ROOT, _) } 
   STACKREL    { (STACKREL, _) }
@@ -43,11 +43,11 @@ import Prelude hiding (EQ, LT, GT)
   TIMES       { (TIMES, _) } 
   DIV         { (DIV, _) } 
   COMP        { (COMP, _) } 
-  OPLUS       { (OPLUS, _) } 
+  OPLUS       { (OPLUS, _) } 
   OTIMES      { (OTIMES, _) } 
   ODOT        { (ODOT, _) }
   SUM         { (SUM, _) } 
-  PROD        { (PROD, _) } 
+  PROD        { (PROD, _) } 
   WEDGE       { (WEDGE, _) } 
   WWEDGE      { (WWEDGE, _) } 
   VV          { (VV, _) } 
@@ -57,66 +57,66 @@ import Prelude hiding (EQ, LT, GT)
   UU          { (UU, _) } 
   UUU         { (UUU, _) }
   INT         { (INT, _) } 
-  OINT        { (OINT, _) } 
-  DEL         { (DEL, _) } 
-  GRAD        { (GRAD, _) } 
-  ADDSUB      { (ADDSUB, _) } 
-  VOID        { (VOID, _) } 
+  OINT        { (OINT, _) } 
+  DEL         { (DEL, _) } 
+  GRAD        { (GRAD, _) } 
+  ADDSUB      { (ADDSUB, _) } 
+  VOID        { (VOID, _) } 
   INFTY       { (INFTY, _) } 
-  ALEPH       { (ALEPH, _) }
+  ALEPH       { (ALEPH, _) }
   ANGLE       { (ANGLE, _) } 
-  THEREFORE   { (THEREFORE, _) } 
+  THEREFORE   { (THEREFORE, _) } 
   ABS         { (ABS, _) } 
   CDOTS       { (CDOTS, _) } 
   VDOTS       { (VDOTS, _) } 
   DDOTS       { (DDOTS, _) } 
-  BSLASH      { (BSLASH, _) }
+  BSLASH      { (BSLASH, _) }
   QUAD        { (QUAD, _) } 
   SPACE       { (SPACE, _) }
   DIAMOND     { (DIAMOND, _) } 
   SQUARE      { (SQUARE, _) } 
-  LFLOOR      { (LFLOOR, _) } 
+  LFLOOR      { (LFLOOR, _) } 
   RFLOOR      { (RFLOOR, _) } 
-  LCEIL       { (LCEIL, _) } 
+  LCEIL       { (LCEIL, _) } 
   RCEIL       { (RCEIL, _) }
   CC          { (CC, _) } 
   ENSNN       { (ENSNN, _) } 
   QQ          { (QQ, _) } 
   RR          { (RR, _) } 
-  ZZ          { (ZZ, _) }
+  ZZ          { (ZZ, _) }
   EQ          { (EQ, _) } 
   NEQ         { (NEQ, _) } 
-  LT          { (LT, _) } 
-  GT          { (GT, _) } 
-  LE          { (LE, _) } 
-  GE          { (GE, _) } 
-  PREC        { (PREC, _) } 
+  LT          { (LT, _) } 
+  GT          { (GT, _) } 
+  LE          { (LE, _) } 
+  GE          { (GE, _) } 
+  PREC        { (PREC, _) } 
   SUCC        { (SUCC, _) }
-  IN          { (IN, _) } 
+  IN          { (IN, _) } 
   NOTIN       { (NOTIN, _) } 
-  SUBSET      { (SUBSET, _) } 
-  SUPSET      { (SUPSET, _) } 
+  SUBSET      { (SUBSET, _) } 
+  SUPSET      { (SUPSET, _) } 
   SUBSETE     { (SUBSETE, _) } 
-  SUPSETE     { (SUPSETE, _) }
+  SUPSETE     { (SUPSETE, _) }
   MOD         { (MOD, _) } 
-  CONGR       { (CONGR, _) } 
-  APPROX      { (APPROX, _) } 
+  CONGR       { (CONGR, _) } 
+  APPROX      { (APPROX, _) } 
   PROP        { (PROP, _) }
   AND         { (AND, _) } 
-  OR          { (OR, _) } 
+  OR          { (OR, _) } 
   NOT         { (NOT, _) } 
-  IMPLIES     { (IMPLIES, _) } 
-  IF          { (IF, _) } 
-  IFF         { (IFF, _) } 
-  FORALL      { (FORALL, _) } 
-  EXISTS      { (EXISTS, _) }
+  IMPLIES     { (IMPLIES, _) } 
+  IF          { (IF, _) } 
+  IFF         { (IFF, _) } 
+  FORALL      { (FORALL, _) } 
+  EXISTS      { (EXISTS, _) }
   FALSUM      { (FALSUM, _) } 
-  TAUT        { (TAUT, _) } 
-  TURNSTILE   { (TURNSTILE, _) } 
+  TAUT        { (TAUT, _) } 
+  TURNSTILE   { (TURNSTILE, _) } 
   TTURNSTILE  { (TTURNSTILE, _) }
   UARR        { (UARR, _) } 
   DARR        { (DARR, _) } 
-  LARR        { (LARR, _) } 
+  LARR        { (LARR, _) } 
   TO          { (TO, _) }
   MAPSTO      { (MAPSTO, _) } 
   HARR        { (HARR, _) } 
@@ -255,7 +255,7 @@ const:
     | LLARR       { cst $1 Llarr }
     -- Additionnal tokens
     | COMMA       { cst $1 Comma }
-    | DOT         { cst $1 Dot }
+    | DOT         { cst $1 Dot }
 
 op1:
     SQRT        { op1 $1 Usqrt }

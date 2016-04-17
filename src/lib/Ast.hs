@@ -52,7 +52,7 @@ data RBracket_ = RPar | RCro | RBra | RChe | RBraCons deriving (Show, Eq)
 data RBracket = RBracket RBracket_ Position deriving (Show, Eq)
 
 -- Matrix type
-data MatrixType = RawMatrix | ColMatrix deriving (Show, Eq)
+data MatrixType = RawMatrix | ColMatrix deriving (Show, Eq)
 
 -- Simple expressions
 data SimpleExpr_ =

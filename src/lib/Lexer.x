@@ -21,7 +21,7 @@ $digit = [0-9]
 $chev = [\< \>]
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
-@rdel = ")" | "]" | "}" | ":)" | ":}"
+@rdel = ")" | "]" | "}" | ":)" | ":}"
 @sym1 = "+" | "*" | "-" | "/" | "@" | "|" | "," | \. | \\ | \^
       | = | \_ | $chev
 @ident = $alpha+
@@ -75,9 +75,9 @@ tokens :-
 -- Token type
 data Token =
   RAW String
-  | WHITE
+  | WHITE
   | LETTER Char | LETTERS_ String -- Temporary token
-  | NUM Int
+  | NUM Int
   | LDEL String
   | RDEL String
   | SLASH | UNDERSCORE | SUPER
@@ -86,27 +86,27 @@ data Token =
   -- Standard functions
   | STDFUN String
   -- Unary ops
-  | SQRT | TEXT | BB | BBB | UCC | TT | FR | SF
+  | SQRT | TEXT | BB | BBB | UCC | TT | FR | SF
   --Binary ops
   | FRAC | ROOT | STACKREL
   -- Operation symbols
   | ADD | SUB | MUL | MMUL | MMMUL | SSLASH | BBSLASH
-  | TIMES | DIV | COMP | OPLUS | OTIMES | ODOT
-  | SUM | PROD | WEDGE | WWEDGE | VV | VVV | NN | NNN | UU | UUU
+  | TIMES | DIV | COMP | OPLUS | OTIMES | ODOT
+  | SUM | PROD | WEDGE | WWEDGE | VV | VVV | NN | NNN | UU | UUU
   -- Miscellaneous symbols
-  | INT | OINT | DEL | GRAD | ADDSUB | VOID | INFTY | ALEPH
-  | ANGLE | THEREFORE | ABS | CDOTS | VDOTS | DDOTS | BSLASH
-  | QUAD | DIAMOND | SQUARE | LFLOOR | RFLOOR | LCEIL | RCEIL
-  | CC | ENSNN | QQ | RR | ZZ | SPACE
+  | INT | OINT | DEL | GRAD | ADDSUB | VOID | INFTY | ALEPH
+  | ANGLE | THEREFORE | ABS | CDOTS | VDOTS | DDOTS | BSLASH
+  | QUAD | DIAMOND | SQUARE | LFLOOR | RFLOOR | LCEIL | RCEIL
+  | CC | ENSNN | QQ | RR | ZZ | SPACE
   -- Relation symbols
-  | EQ | NEQ | LT | GT | LE | GE | PREC | SUCC
-  | IN | NOTIN | SUBSET | SUPSET | SUBSETE | SUPSETE
-  | MOD | CONGR | APPROX | PROP
+  | EQ | NEQ | LT | GT | LE | GE | PREC | SUCC
+  | IN | NOTIN | SUBSET | SUPSET | SUBSETE | SUPSETE
+  | MOD | CONGR | APPROX | PROP
   -- Logical symbols
-  | AND | OR | NOT | IMPLIES | IF | IFF | FORALL | EXISTS
-  | FALSUM | TAUT | TURNSTILE | TTURNSTILE
+  | AND | OR | NOT | IMPLIES | IF | IFF | FORALL | EXISTS
+  | FALSUM | TAUT | TURNSTILE | TTURNSTILE
   -- Arrows
-  | UARR | DARR | LARR | TO
+  | UARR | DARR | LARR | TO
   | MAPSTO | HARR | LLARR
   -- Accents
   | HAT | BAR | UL | VEC | DOTOP | DDOT 
