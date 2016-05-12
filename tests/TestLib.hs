@@ -1,6 +1,7 @@
-module TestLib (mkTestSuite, run) where
+module TestLib (mkTestSuite, run, (<$>)) where
 import Test.HUnit
 import AsciiMath (compile, LexicalError(..))
+import Prelude hiding ((<$>))
 import Control.Applicative ((<$>))
 
 unComment :: [String] -> [String]

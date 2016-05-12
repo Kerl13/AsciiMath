@@ -79,7 +79,7 @@ writeConst (Constant cst _) = writeConst_ cst
               writeConst_ Lt = "<"
               writeConst_ Gt = ">"
               writeConst_ Le = cmd "leqslant"
-              writeConst_ Ge = cmd "gesqlant"
+              writeConst_ Ge = cmd "geqslant"
               writeConst_ Prec = cmd "prec"
               writeConst_ Succ = cmd "succ"
               writeConst_ In = cmd "in"
@@ -117,6 +117,7 @@ writeConst (Constant cst _) = writeConst_ cst
               writeConst_ Comma = ","
               writeConst_ Dot = "."
               writeConst_ Semicolon = ";"
+              writeConst_ Quote = "'"
 
 -- Writes a unary operator
 writeUnaryOp :: UnaryOp -> String

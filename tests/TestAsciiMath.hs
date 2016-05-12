@@ -1,7 +1,6 @@
 module Main ( main ) where
 import TestLib
 import Test.HUnit
-import Control.Applicative ((<$>))
 
 tests :: IO Test
 tests = TestList <$> sequence [

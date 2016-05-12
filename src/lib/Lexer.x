@@ -18,7 +18,7 @@ import qualified Data.Bits
 $alpha = [a-zA-Z]
 $digit = [0-9]
 
-$escaped = [\< \> \;]
+$escaped = [\< \> \; \']
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
@@ -112,7 +112,7 @@ data Token =
   -- Accents
   | HAT | BAR | UL | VEC | DOTOP | DDOT 
   -- Additionnal tokens 
-  | COMMA | DOT | SEMICOLON
+  | COMMA | DOT | SEMICOLON | QUOTE
   deriving (Show)
 
 cst :: t -> (Position -> String -> (t, Int))
@@ -183,7 +183,7 @@ sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
   ("=", EQ), ("<", LT), (">", GT), (",", COMMA), (".", DOT), ("\\", BSLASH),
-  ("^", SUPER), ("=", EQ), ("_", UNDERSCORE), (";", SEMICOLON)]
+  ("^", SUPER), ("=", EQ), ("_", UNDERSCORE), (";", SEMICOLON), ("'", QUOTE)]
 
 -- Associates a Token to matched characters
 check_sym1 :: String -> Token
