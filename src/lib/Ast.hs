@@ -27,7 +27,7 @@ data Constant_ =
   | Uarr | Darr | Larr | To
   | Mapsto | Harr | Llarr
   -- Additionnal symbols
-  | Comma | Dot
+  | Comma | Dot | Semicolon
   deriving (Show, Eq)
 data Constant = Constant Constant_ Position deriving (Show, Eq)
 

@@ -23,7 +23,7 @@ $chev = [\< \>]
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
 @sym1 = "+" | "*" | "-" | "/" | "@" | "|" | "," | \. | \\ | \^
-      | = | \_ | $chev
+      | = | \_ | $chev | ";"
 @ident = $alpha+
 @text = (@ident | ' ')+
 
@@ -112,7 +112,7 @@ data Token =
   -- Accents
   | HAT | BAR | UL | VEC | DOTOP | DDOT 
   -- Additionnal tokens 
-  | COMMA | DOT
+  | COMMA | DOT | SEMICOLON
   deriving (Show)
 
 cst :: t -> (Position -> String -> (t, Int))
@@ -183,7 +183,7 @@ sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
   ("=", EQ), ("<", LT), (">", GT), (",", COMMA), (".", DOT), ("\\", BSLASH),
-  ("^", SUPER), ("=", EQ), ("_", UNDERSCORE)]
+  ("^", SUPER), ("=", EQ), ("_", UNDERSCORE), (";", SEMICOLON)]
 
 -- Associates a Token to matched characters
 check_sym1 :: String -> Token

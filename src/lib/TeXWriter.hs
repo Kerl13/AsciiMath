@@ -116,6 +116,7 @@ writeConst (Constant cst _) = writeConst_ cst
               -- Additionnal symbols
               writeConst_ Comma = ","
               writeConst_ Dot = "."
+              writeConst_ Semicolon = ";"
 
 -- Writes a unary operator
 writeUnaryOp :: UnaryOp -> String

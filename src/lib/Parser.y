@@ -129,6 +129,7 @@ import Prelude hiding (EQ, LT, GT)
   DDOT        { (DDOT, _) } 
   COMMA       { (COMMA, _) }
   DOT         { (DOT, _) }
+  SEMICOLON   { (SEMICOLON, _) }
 
 %%
 
@@ -256,6 +257,7 @@ const:
     -- Additionnal tokens
     | COMMA       { cst $1 Comma }
     | DOT         { cst $1 Dot }
+    | SEMICOLON   { cst $1 Semicolon }
 
 op1:
     SQRT        { op1 $1 Usqrt }
@@ -287,7 +289,7 @@ simpleExpr:
                   SimpleExpr (SEConst $1) p }
     | lDel code rDel
                 { let (LBracket _ p1) = $1 in
-				          let (RBracket _ p3) = $3 in
+                  let (RBracket _ p3) = $3 in
                   SimpleExpr (Delimited $1 $2 $3) (pextr p1 p3) }
     | op1 simpleExpr
                 { let (UnaryOp _ p1) = $1 in
@@ -302,7 +304,7 @@ simpleExpr:
 {
 
 thenE :: Either LexicalError a -> (a -> Either LexicalError b) -> Either
-	  LexicalError b
+    LexicalError b
 thenE (Left err) _ = Left err
 thenE (Right x) f = f x
 
