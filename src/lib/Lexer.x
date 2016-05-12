@@ -18,12 +18,12 @@ import qualified Data.Bits
 $alpha = [a-zA-Z]
 $digit = [0-9]
 
-$chev = [\< \>]
+$escaped = [\< \> \;]
 
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
 @sym1 = "+" | "*" | "-" | "/" | "@" | "|" | "," | \. | \\ | \^
-      | = | \_ | $chev | ";"
+      | = | \_ | $escaped
 @ident = $alpha+
 @text = (@ident | ' ')+
 
