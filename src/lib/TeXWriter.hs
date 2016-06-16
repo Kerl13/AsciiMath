@@ -118,6 +118,7 @@ writeConst (Constant cst _) = writeConst_ cst
               writeConst_ Dot = "."
               writeConst_ Semicolon = ";"
               writeConst_ Quote = "'"
+              writeConst_ Facto = "!"
 
 -- Writes a unary operator
 writeUnaryOp :: UnaryOp -> String

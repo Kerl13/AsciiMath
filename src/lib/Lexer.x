@@ -23,7 +23,7 @@ $escaped = [\< \> \; \']
 @ldel = "(" | "[" | "{" | "(:" | "{:"
 @rdel = ")" | "]" | "}" | ":)" | ":}"
 @sym1 = "+" | "*" | "-" | "/" | "@" | "|" | "," | \. | \\ | \^
-      | = | \_ | $escaped
+      | = | \_ | $escaped | "!"
 @ident = $alpha+
 @text = (@ident | ' ')+
 
@@ -112,7 +112,7 @@ data Token =
   -- Accents
   | HAT | BAR | UL | VEC | DOTOP | DDOT 
   -- Additionnal tokens 
-  | COMMA | DOT | SEMICOLON | QUOTE
+  | COMMA | DOT | SEMICOLON | QUOTE | FACTO
   deriving (Show)
 
 cst :: t -> (Position -> String -> (t, Int))
@@ -183,7 +183,8 @@ sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
   ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
   ("=", EQ), ("<", LT), (">", GT), (",", COMMA), (".", DOT), ("\\", BSLASH),
-  ("^", SUPER), ("=", EQ), ("_", UNDERSCORE), (";", SEMICOLON), ("'", QUOTE)]
+  ("^", SUPER), ("=", EQ), ("_", UNDERSCORE), (";", SEMICOLON), ("'", QUOTE),
+  ("!", FACTO)]
 
 -- Associates a Token to matched characters
 check_sym1 :: String -> Token

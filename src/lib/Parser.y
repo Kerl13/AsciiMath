@@ -131,6 +131,7 @@ import Prelude hiding (EQ, LT, GT)
   DOT         { (DOT, _) }
   SEMICOLON   { (SEMICOLON, _) }
   QUOTE       { (QUOTE, _) }
+  FACTO       { (FACTO, _) }
 
 %%
 
@@ -260,6 +261,7 @@ const:
     | DOT         { cst $1 Dot }
     | SEMICOLON   { cst $1 Semicolon }
     | QUOTE       { cst $1 Quote }
+    | FACTO       { cst $1 Facto }
 
 op1:
     SQRT        { op1 $1 Usqrt }
