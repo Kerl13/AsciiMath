@@ -155,3 +155,6 @@ matrix. More precisely :
 * In the example, `(a,b)`, `(c,d)` and `(e,f)` are the **lines** of the matrix
 * The lines must have the same lengths
 
+## License
+
+The code of AsciiMath is released under the MIT license

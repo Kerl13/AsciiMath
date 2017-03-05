@@ -4,7 +4,7 @@ synopsis:             Compiler from ASCIIMath to LaTeX
 description:          AsciiMath is a Haskell library for converting from
                       asciimath to LaTeX. See README.md for further information.
 homepage:             https://github.com/Kerl13/AsciiMath
-license:              OtherLicense
+license:              MIT
 license-file:         LICENSE
 author:               Martin Pépin
 maintainer:           martin.pepin@netcourrier.com
