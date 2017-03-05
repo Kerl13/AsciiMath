@@ -1,4 +1,9 @@
 language: haskell
 
+install:
+  - cabal update && cabal install alex && cabal install happy
+  - export PATH="$HOME/.cabal/bin:$PATH"
+  - cabal install --only-dependencies --enable-tests
+
 ghc:
   - 7.10
