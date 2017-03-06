@@ -3,16 +3,15 @@ import Ast
 import Data.List (intercalate)
 
 cmd_ :: String -> String
-cmd_ s = "\\" ++ s
+cmd_ = ("\\" ++)
 
 cmd :: String -> String
-cmd = cmd_ . (flip (++) $ " ")
+cmd = cmd_ . (++ " ")
 
-cmdarg :: String -> String -> String
-cmdarg c a = cmd_ c ++ "{" ++ a ++ "}"
-
-cmdarg2 :: String -> String -> String -> String
-cmdarg2 c a1 a2 = cmd_ c ++ "{" ++ a1 ++ "}{" ++ a2 ++ "}"
+cmdargs :: String -> [String] -> String
+cmdargs c args =
+  let args' = map (\a -> "{" ++ a ++ "}") args in
+  concat $ (cmd_ c):args'
 
 writeConst :: Constant -> String
 writeConst (Constant cst _) = writeConst_ cst
@@ -68,11 +67,11 @@ writeConst (Constant cst _) = writeConst_ cst
               writeConst_ Rfloor = cmd "rfloor"
               writeConst_ Lceil = cmd "lceil"
               writeConst_ Rceil = cmd "rceil"
-              writeConst_ Cc = cmdarg "mathbb" "C"
-              writeConst_ Ensnn = cmdarg "mathbb" "N"
-              writeConst_ Qq = cmdarg "mathbb" "Q"
-              writeConst_ Rr = cmdarg "mathbb" "R"
-              writeConst_ Zz = cmdarg "mathbb" "Z"
+              writeConst_ Cc = cmdargs "mathbb" ["C"]
+              writeConst_ Ensnn = cmdargs "mathbb" ["N"]
+              writeConst_ Qq = cmdargs "mathbb" ["Q"]
+              writeConst_ Rr = cmdargs "mathbb" ["R"]
+              writeConst_ Zz = cmdargs "mathbb" ["Z"]
               -- Relation symbols
               writeConst_ Eq = "="
               writeConst_ Neq = cmd "neq"
@@ -93,11 +92,11 @@ writeConst (Constant cst _) = writeConst_ cst
               writeConst_ Approx = cmd "approx"
               writeConst_ Prop = cmd "propto"
               -- Logical symbols
-              writeConst_ And = cmdarg "textrm" "and"
-              writeConst_ Or = cmdarg "textrm" "or"
+              writeConst_ And = cmdargs "textrm" ["and"]
+              writeConst_ Or = cmdargs "textrm" ["or"]
               writeConst_ Not = cmd "neg"
               writeConst_ Implies = cmd "Rightarrow"
-              writeConst_ If = cmdarg "textrm" "if"
+              writeConst_ If = cmdargs "textrm" ["if"]
               writeConst_ Iff = cmd "Leftrightarrow"
               writeConst_ Forall = cmd "forall"
               writeConst_ Exists = cmd "exists"
@@ -167,18 +166,18 @@ writeSimpleExpr (SimpleExpr expr _) = writeSimpleExpr_ expr
                 let textMatrix = mmap writeCode css in
                 let ls = map (intercalate " & ") textMatrix in
                 let text = intercalate " \\\\ " ls in
-                cmdarg "begin" mt ++ text ++ cmdarg "end" mt
+                cmdargs "begin" [mt] ++ text ++ cmdargs "end" [mt]
               writeSimpleExpr_ (Delimited l e r) = 
                 writeLBracket l ++ writeCode e ++ writeRBracket r
               writeSimpleExpr_ (UnaryApp o e) =
-                cmdarg (writeUnaryOp o) (writeSimpleExprND e)
+                cmdargs (writeUnaryOp o) [writeSimpleExprND e]
               writeSimpleExpr_ (BinaryApp (BinaryOp BFrac _) e1 e2) =
-                cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
+                cmdargs "frac" [writeSimpleExprND e1, writeSimpleExprND e2]
               writeSimpleExpr_ (BinaryApp (BinaryOp BRoot _) e1 e2) =
-                cmdarg ("sqrt[" ++ writeSimpleExpr e1 ++ "]") $ writeSimpleExpr e2
+                cmdargs ("sqrt[" ++ writeSimpleExpr e1 ++ "]") [writeSimpleExpr e2]
               writeSimpleExpr_ (BinaryApp (BinaryOp BStackRel _) e1 e2) =
-                cmdarg2 "stackrel" (writeSimpleExpr e1) (writeSimpleExpr e2)
-              writeSimpleExpr_ (Raw s) = cmdarg "textrm" s
+                cmdargs "stackrel" [writeSimpleExpr e1, writeSimpleExpr e2]
+              writeSimpleExpr_ (Raw s) = cmdargs "textrm" [s]
 
 -- Writes a simple expression after removing the embracing delimiters if present
 writeSimpleExprND :: SimpleExpr -> String
@@ -190,7 +189,7 @@ writeExpr :: Expr -> String
 writeExpr (Expr e _) = writeExpr_ e
         where writeExpr_ (Simple se) = writeSimpleExpr se
               writeExpr_ (Frac e1 e2) =
-                cmdarg2 "frac" (writeSimpleExprND e1) (writeSimpleExprND e2)
+                cmdargs "frac" [writeSimpleExprND e1, writeSimpleExprND e2]
               writeExpr_ (Under e1 e2) =
                 writeSimpleExpr e1 ++ "_{" ++ writeSimpleExprND e2 ++ "}"
               writeExpr_ (Super e1 e2) = 
