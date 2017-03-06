@@ -6,20 +6,11 @@ import Passes (matrix)
 import TeXWriter (writeTeX)
 import Ast
 
-apL :: (a -> Either e b) -> Either e a -> Either e b
-apL f (Right x) = f x
-apL _ (Left err) = Left err
-
-returnE :: a -> Either LexicalError a
-returnE x = Right x
-
 readAscii :: String -> Either LexicalError Code
-readAscii s = apL (returnE . matrix) $ apL parseAscii $ get_tokens s
+readAscii s = return . matrix =<< parseAscii =<< get_tokens s
   
 compile :: String -> Either LexicalError String
-compile s = case readAscii s of
-  Right x -> Right $ writeTeX x
-  Left e -> Left e
+compile s = fmap writeTeX $ readAscii s
 
 run :: String -> String
 run s = case compile s of
