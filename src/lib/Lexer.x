@@ -110,8 +110,8 @@ data Token =
   | UARR | DARR | LARR | TO
   | MAPSTO | HARR | LLARR
   -- Accents
-  | HAT | BAR | UL | VEC | DOTOP | DDOT 
-  -- Additionnal tokens 
+  | TILDE | HAT | BAR | UL | VEC | DOTOP | DDOT
+  -- Additionnal tokens
   | COMMA | DOT | SEMICOLON | QUOTE | FACTO
   deriving (Show)
 
@@ -148,7 +148,7 @@ kws = M.fromList [
   ("uarr", UARR), ("darr", DARR), ("rarr", TO), ("larr", LARR),
   ("harr", HARR), ("rArr", IMPLIES), ("lArr", LLARR), ("hArr", IFF),
   -- Accents
-  ("hat", HAT), ("bar", BAR), ("ul", UL),
+  ("tilde", TILDE), ("hat", HAT), ("bar", BAR), ("ul", UL),
   ("vec", VEC), ("dot", DOTOP), ("ddot", DDOT)]
 
 greek_letters :: S.Set String
