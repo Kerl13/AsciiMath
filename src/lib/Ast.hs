@@ -47,7 +47,7 @@ data BinaryOp = BinaryOp BinaryOp_ Position deriving (Show, Eq)
 data LBracket_ = LPar | LCro | LBra | LChe | LBraCons deriving (Show, Eq)
 data LBracket = LBracket LBracket_ Position deriving (Show, Eq)
 
--- Right brackets 
+-- Right brackets
 data RBracket_ = RPar | RCro | RBra | RChe | RBraCons deriving (Show, Eq)
 data RBracket = RBracket RBracket_ Position deriving (Show, Eq)
 

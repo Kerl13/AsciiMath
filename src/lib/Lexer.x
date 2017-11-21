@@ -83,7 +83,7 @@ data Token =
   | RDEL String
   | SLASH | UNDERSCORE | SUPER
   -- Greek letters
-  | GREEK String 
+  | GREEK String
   -- Standard functions
   | STDFUN String
   -- Unary ops
@@ -181,7 +181,7 @@ check_kw s = case M.lookup s kws of
 sym1 :: M.Map String Token
 sym1 = M.fromList [
   ("+", ADD), ("-", SUB), ("*", MUL), ("\\", BSLASH), ("/", SLASH),
-  ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER), 
+  ("@", COMP), ("|", ABS), ("_", UNDERSCORE), ("^", SUPER),
   ("=", EQ), ("<", LT), (">", GT), (",", COMMA), (".", DOT), ("\\", BSLASH),
   ("^", SUPER), ("=", EQ), ("_", UNDERSCORE), (";", SEMICOLON), ("'", QUOTE),
   ("!", FACTO)]
@@ -224,7 +224,7 @@ instance Show LexicalError where
               ++ "lexical error near: \"" ++ msg ++ "\"\n");
             exitFailure;
             }
-          show (LexicalError msg (Position _ l c)) = 
+          show (LexicalError msg (Position _ l c)) =
             unsafePerformIO $ do {
             putStr ("Line " ++ show l
               ++ ", characters " ++ show c ++ "-" ++ show (c+1) ++ ":\n"
@@ -258,22 +258,22 @@ alexInputPrevChar (_,c,_,_) = c
 
 -- Encoding
 utf8Encode :: Char -> [Word8]
-utf8Encode = map fromIntegral . go . ord 
+utf8Encode = map fromIntegral . go . ord
  where
   go oc
    | oc <= 0x7f   = [oc]
    | oc <= 0x7ff  = [ 0xc0 + (oc `Data.Bits.shiftR` 6)
                     , 0x80 + oc Data.Bits..&. 0x3f
-                    ]   
-   | oc <= 0xffff = [ 0xe0 + (oc `Data.Bits.shiftR` 12) 
+                    ]
+   | oc <= 0xffff = [ 0xe0 + (oc `Data.Bits.shiftR` 12)
                     , 0x80 + ((oc `Data.Bits.shiftR` 6) Data.Bits..&. 0x3f)
                     , 0x80 + oc Data.Bits..&. 0x3f
-                    ]   
-   | otherwise    = [ 0xf0 + (oc `Data.Bits.shiftR` 18) 
+                    ]
+   | otherwise    = [ 0xf0 + (oc `Data.Bits.shiftR` 18)
                     , 0x80 + ((oc `Data.Bits.shiftR` 12) Data.Bits..&. 0x3f)
                     , 0x80 + ((oc `Data.Bits.shiftR` 6) Data.Bits..&. 0x3f)
                     , 0x80 + oc Data.Bits..&. 0x3f
-                    ] 
+                    ]
 
 -- Position initialisation
 alexStartPos :: Position
@@ -301,7 +301,7 @@ unletters "" _ = []
 unletters (c:s) (PositionElement abs line col len) =
     let hd = (LETTER c, PositionElement abs line col 1) in
     hd:(unletters s $ PositionElement (abs+1) line (col+1) (len-1))
-unletters (c:s) (Position abs line col) = 
+unletters (c:s) (Position abs line col) =
     let hd = (LETTER c, Position abs line col) in
     hd:(unletters s $ Position (abs+1) line (col+1))
 
