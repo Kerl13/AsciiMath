@@ -8,7 +8,7 @@ import Ast
 
 readAscii :: String -> Either LexicalError Code
 readAscii s = return . matrix =<< parseAscii =<< get_tokens s
-  
+
 compile :: String -> Either LexicalError String
 compile s = fmap writeTeX $ readAscii s
 
