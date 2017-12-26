@@ -83,4 +83,3 @@ parseSeq2 (Just cs) =
 -- ParseSeq
 parseSeq :: Code -> Maybe [[Code]]
 parseSeq = parseSeq2 . parseSeq1
-

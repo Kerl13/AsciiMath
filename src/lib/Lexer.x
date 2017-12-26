@@ -328,4 +328,3 @@ alexScanTokens s = go (alexStartPos,'\n',[],s) 0
                     LETTERS_ w -> cat (unletters w elt_pos) $ go inp' new_sc
                     _ -> cat [(tok, elt_pos)] $ go inp' new_sc
 }
-

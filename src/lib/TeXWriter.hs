@@ -207,4 +207,3 @@ writeCode = foldr (\e s -> writeExpr e ++ s) ""
 -- The main writer
 writeTeX :: Code -> String
 writeTeX = writeCode
-

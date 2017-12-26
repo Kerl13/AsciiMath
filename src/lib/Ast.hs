@@ -27,7 +27,7 @@ data Constant_ =
   | Uarr | Darr | Larr | To
   | Mapsto | Harr | Llarr
   -- Additionnal symbols
-  | Comma | Dot | Semicolon | Quote | Facto
+  | Comma | Dot | Semicolon | Quote | Facto
   deriving (Show, Eq)
 data Constant = Constant Constant_ Position deriving (Show, Eq)
 
@@ -77,4 +77,3 @@ data Expr = Expr Expr_ Position deriving (Show, Eq)
 
 -- Whole asciimath code
 type Code = [Expr]
-
