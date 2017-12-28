@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-module Exception (AsciimathException(..), Position(..), printAndExit) where
+module Exception (AsciimathException(..), Position(..), printAndExit, renderError) where
 
 import System.Exit (exitWith, ExitCode(ExitFailure))
 import System.IO (hFlush, hPutStrLn, stderr)
@@ -17,7 +17,8 @@ data Position =
 
 data AsciimathException =
     LexicalError String Position
-  deriving (Data, Show, Typeable)
+  | ErrorAndSource AsciimathException String
+  deriving (Show, Typeable)
 
 instance Exception AsciimathException
 
@@ -30,6 +31,9 @@ renderError (LexicalError msg (Position _ l c)) =
   "Line " ++ show l ++
   ", characters " ++ show c ++ "-" ++ show (c + 1) ++ ":\n" ++
   "lexical error near: " ++ msg
+renderError (ErrorAndSource exn src) =
+  "In expression:\n" ++ src ++ "\n" ++
+  renderError exn
 
 printAndExit :: AsciimathException -> IO ()
 printAndExit e = do

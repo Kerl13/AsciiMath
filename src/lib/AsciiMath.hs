@@ -1,4 +1,4 @@
-module AsciiMath (readAscii, writeTeX, compile, run, AsciimathException(..), printAndExit) where
+module AsciiMath (readAscii, writeTeX, compile, run, AsciimathException(..), renderError, printAndExit) where
 
 import Control.Exception (throw)
 
@@ -18,4 +18,4 @@ compile s = fmap writeTeX $ readAscii s
 run :: String -> String
 run s = case compile s of
   Right txt -> txt
-  Left e -> throw e
+  Left e -> throw $ ErrorAndSource e s
