@@ -35,7 +35,7 @@ data Constant = Constant Constant_ Position deriving (Show, Eq)
 data UnaryOp_ =
   Usqrt | Utext
   | Ubb | Ubbb | Ucc | Utt | Ufr | Usf
-  | Uhat | Ubar | Uul | Uvec | Udot | Uddot
+  | Utilde | Uhat | Ubar | Uul | Uvec | Udot | Uddot
   deriving (Show, Eq)
 data UnaryOp = UnaryOp UnaryOp_ Position deriving (Show, Eq)
 

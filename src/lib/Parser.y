@@ -121,6 +121,7 @@ import Prelude hiding (EQ, LT, GT)
   MAPSTO      { (MAPSTO, _) }
   HARR        { (HARR, _) }
   LLARR       { (LLARR, _) }
+  TILDE       { (TILDE, _) }
   HAT         { (HAT, _) }
   BAR         { (BAR, _) }
   UL          { (UL, _) }
@@ -272,6 +273,7 @@ op1:
     | TT        { op1 $1 Utt }
     | FR        { op1 $1 Ufr }
     | SF        { op1 $1 Usf }
+    | TILDE     { op1 $1 Utilde }
     | HAT       { op1 $1 Uhat }
     | BAR       { op1 $1 Ubar }
     | UL        { op1 $1 Uul }

@@ -130,6 +130,7 @@ writeUnaryOp (UnaryOp u _) = writeUnaryOp_ u
               writeUnaryOp_ Utt = "texttt"
               writeUnaryOp_ Ufr = "mathfrak"
               writeUnaryOp_ Usf = "mathsf"
+              writeUnaryOp_ Utilde = "tilde"
               writeUnaryOp_ Uhat = "hat"
               writeUnaryOp_ Ubar = "overline"
               writeUnaryOp_ Uul = "underline"
