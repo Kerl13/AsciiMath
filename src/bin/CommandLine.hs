@@ -1,5 +1,7 @@
 module Main (main) where
-import AsciiMath (run)
+
+import Control.Exception as E
+import AsciiMath
 
 main :: IO ()
-main = interact $ (++"\n") . run
+main = E.catch (interact $ (++ "\n") . run) printAndExit

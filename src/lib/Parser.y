@@ -1,13 +1,16 @@
 {
 module Parser (parseAscii) where
-import Lexer
-import Ast
+
 import Prelude hiding (EQ, LT, GT)
+
+import Ast
+import Exception
+import Lexer
 }
 
 %name parseAscii
 %tokentype { (Token, Position) }
-%monad { Either LexicalError } { thenE } { \x -> Right x }
+%monad { Either AsciimathException } { thenE } { \x -> Right x }
 
 %token
   RAW         { (RAW _, _) }
@@ -307,7 +310,7 @@ simpleExpr:
 
 {
 
-thenE :: Either LexicalError a -> (a -> Either LexicalError b) -> Either LexicalError b
+thenE :: Either AsciimathException a -> (a -> Either AsciimathException b) -> Either AsciimathException b
 thenE (Left err) _ = Left err
 thenE (Right x) f = f x
 

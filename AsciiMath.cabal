@@ -16,7 +16,7 @@ cabal-version:        >=1.10
 
 library
   build-depends:        containers, array, base >=4.6 && <5
-  other-modules:        Parser, Lexer, Ast, TeXWriter, Passes
+  other-modules:        Parser, Lexer, Ast, TeXWriter, Passes, Exception
   exposed-modules:      AsciiMath
   build-tools:          happy, alex
   hs-source-dirs:       src/lib

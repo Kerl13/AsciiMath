@@ -1,6 +1,7 @@
 module TestLib (mkTestSuite, run, (<$>)) where
 import Test.HUnit
-import AsciiMath (compile, LexicalError(..))
+
+import AsciiMath (compile, AsciimathException(..))
 import Prelude hiding ((<$>))
 import Control.Applicative ((<$>))
 
@@ -34,4 +35,3 @@ run t = do {
   then return ()
   else error "fail";
 }
-

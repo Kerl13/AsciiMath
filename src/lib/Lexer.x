@@ -1,16 +1,14 @@
 {
-{-# LANGUAGE DeriveDataTypeable #-}
-module Lexer (get_tokens, Token(..), Position(..), LexicalError(..)) where
+module Lexer (get_tokens, Token(..), Position(..)) where
+
 import qualified Data.Map as M
 import qualified Data.Set as S
-import Control.Exception (Exception)
-import System.IO.Unsafe (unsafePerformIO)
-import System.Exit (exitFailure)
 import Data.Word (Word8)
 import Data.Char (ord)
-import Data.Typeable
 import Prelude hiding (abs, EQ, LT, GT)
 import qualified Data.Bits
+
+import Exception
 
 }
 
@@ -193,7 +191,7 @@ check_sym1 s = case M.lookup s sym1 of
     Nothing -> error ("'" ++ s ++ "' is supposed to be recognised")
 
 -- The main function
-get_tokens :: String -> Either LexicalError [(Token, Position)]
+get_tokens :: String -> Either AsciimathException [(Token, Position)]
 get_tokens = alexScanTokens
 
 
@@ -205,33 +203,6 @@ get_tokens = alexScanTokens
 -----------------------------
 
 type Byte = Word8
-
--- Location
--- abs, line, column, length
-data Position =
-  Position !Int !Int !Int
-  | PositionElement !Int !Int !Int !Int
-  deriving (Show, Eq)
-
--- Lexical Error
-data LexicalError = LexicalError String Position deriving (Typeable)
-instance Show LexicalError where
-          show (LexicalError msg (PositionElement _ l c len)) =
-            unsafePerformIO $ do {
-            putStr ("Line "
-              ++ (show l) ++ ", characters "
-              ++ (show c) ++ "-" ++ (show $ c + len) ++ ":\n"
-              ++ "lexical error near: \"" ++ msg ++ "\"\n");
-            exitFailure;
-            }
-          show (LexicalError msg (Position _ l c)) =
-            unsafePerformIO $ do {
-            putStr ("Line " ++ show l
-              ++ ", characters " ++ show c ++ "-" ++ show (c+1) ++ ":\n"
-              ++ "lexical error near: " ++ msg ++ "\n");
-            exitFailure;
-            }
-instance Exception LexicalError
 
 -- Shortens strings
 cut :: String -> String
@@ -310,7 +281,7 @@ cat _ (Left e) = Left e
 cat l (Right l') = Right $ l ++ l'
 
 -- The scanner
-alexScanTokens :: String -> Either LexicalError [(Token, Position)]
+alexScanTokens :: String -> Either AsciimathException [(Token, Position)]
 alexScanTokens s = go (alexStartPos,'\n',[],s) 0
   where go inp@(pos,_,_,str) sc =
           case alexScan inp sc of
