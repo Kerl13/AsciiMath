@@ -8,8 +8,6 @@ import Prelude hiding (EQ, LT, GT)
 %name parseAscii
 %tokentype { (Token, Position) }
 %monad { Either LexicalError } { thenE } { \x -> Right x }
-%error { \x ->  let (tok, pos) = head x in
-                Left $ LexicalError (show tok) pos }
 
 %token
   RAW         { (RAW _, _) }
@@ -307,10 +305,13 @@ simpleExpr:
 
 {
 
-thenE :: Either LexicalError a -> (a -> Either LexicalError b) -> Either
-    LexicalError b
+thenE :: Either LexicalError a -> (a -> Either LexicalError b) -> Either LexicalError b
 thenE (Left err) _ = Left err
 thenE (Right x) f = f x
+
+happyError tokens =
+  let (tok, pos) = head tokens in
+  Left $ LexicalError (show tok) pos
 
 -- Conversion
 cst :: (Token, Position) -> Constant_ -> Constant
