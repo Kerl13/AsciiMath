@@ -17,7 +17,7 @@ writeConst :: Constant -> String
 writeConst (Constant cst _) = writeConst_ cst
               -- Operation symbols
         where writeConst_ (Letter c) = [c]
-              writeConst_ (Number n) = show n
+              writeConst_ (Number n) = n
               writeConst_ (GreekLetter s) = cmd s
               writeConst_ (StdFun s) = cmd s
               writeConst_ Add = "+"

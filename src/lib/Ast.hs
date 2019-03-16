@@ -4,7 +4,7 @@ import Lexer (Position(..))
 -- Constants : variables, numbers, etc.
 data Constant_ =
   Letter Char
-  | Number Int
+  | Number String
   | GreekLetter String
   | StdFun String
   -- Operation symbols

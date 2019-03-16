@@ -24,12 +24,14 @@ $escaped = [\< \> \; \']
       | = | \_ | $escaped | "!"
 @ident = $alpha+
 @text = (@ident | ' ')+
+@real = $digit+ \. $digit+
 
 -- The lexer rules
 tokens :-
   <0>       $white+     ;
   <0>       @ident      { \_ s -> (check_kw s, 0) }
-  <0>       $digit+     { \_ s -> (NUM (read s), 0) }
+  <0>       @real       { \_ s -> (NUM s, 0) }
+  <0>       $digit+     { \_ s -> (NUM s, 0) }
   <0>       @ldel       { \_ s -> (LDEL s, 0) }
   <0>       @rdel       { \_ s -> (RDEL s, 0) }
   <0>       @sym1       { \_ s -> (check_sym1 s, 0) }
@@ -76,7 +78,7 @@ data Token =
   RAW String
   | WHITE
   | LETTER Char | LETTERS_ String -- Temporary token
-  | NUM Int
+  | NUM String
   | LDEL String
   | RDEL String
   | SLASH | UNDERSCORE | SUPER

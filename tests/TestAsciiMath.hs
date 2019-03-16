@@ -4,6 +4,7 @@ import Test.HUnit
 
 tests :: IO Test
 tests = TestList <$> sequence [
+  mkTestSuite "Numerals" "numbers",
   mkTestSuite "Operation symbols" "op-sym",
   mkTestSuite "Miscellaneous symbols" "misc-sym",
   mkTestSuite "Relation symbols" "rel-sym",
