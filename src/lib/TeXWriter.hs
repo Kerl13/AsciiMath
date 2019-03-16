@@ -9,9 +9,7 @@ cmd :: String -> String
 cmd = cmd_ . (++ " ")
 
 cmdargs :: String -> [String] -> String
-cmdargs c args =
-  let args' = map (\a -> "{" ++ a ++ "}") args in
-  concat $ (cmd_ c):args'
+cmdargs c = concat . (cmd_ c:) . map (\a -> "{" ++ a ++ "}")
 
 writeConst :: Constant -> String
 writeConst (Constant cst _) = writeConst_ cst
@@ -156,7 +154,7 @@ writeRBracket (RBracket r _) = cmd_ "right" ++ aux r
 
 -- Usefull map
 mmap :: (a -> b) -> [[a]] -> [[b]]
-mmap f m = map (map f) m
+mmap f = map (map f)
 
 -- Writes a simple expression
 writeSimpleExpr :: SimpleExpr -> String

@@ -49,13 +49,13 @@ comma _ = False
 split :: (a -> Bool) -> [a] -> [[a]]
 split p l = case break p l of
     (_, []) -> [l]
-    (l1, l2) -> l1 : (split p $ drop 1 l2)
+    (l1, l2) -> l1 : split p (drop 1 l2)
 
 -- First step of parseSeq : match a sequence of comma-separated bracketed
 -- expression
 unbracket :: [Code] -> Maybe [(LBracket_, Code)]
 unbracket [] = Just []
-unbracket ([(Expr (Simple (SimpleExpr (Delimited lb c rb) _)) _)]:cs) =
+unbracket ([Expr (Simple (SimpleExpr (Delimited lb c rb) _)) _]:cs) =
     case (lb, rb, unbracket cs) of
         (LBracket LCro _, RBracket RCro _, Just l) -> Just ((LCro, c):l)
         (LBracket LPar _, RBracket RPar _, Just l) -> Just ((LPar, c):l)
@@ -71,7 +71,7 @@ parseSeq2 Nothing = Nothing
 parseSeq2 (Just cs) =
   let (lb, _) = head cs in
   if all (\(lb', _) -> lb' == lb) cs then
-    let res = map ((split comma) . snd) cs in
+    let res = map (split comma . snd) cs in
     let n = length . head $ res in
     if all (\l -> n == length l) res then
       Just res
